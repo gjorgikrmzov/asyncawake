@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --primary: #5e27f6;
+  --dark: #070707;
+}
+
+* {
+  font-family: "onest";
+}
+
+@font-face {
+  font-family: onest;
+  src: url("../../assets//fonts/Onest-VariableFont_wght.ttf");
+}
+
+@theme inline {
+  --color-background: var(--dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #070707;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-scroll-left {
+  animation: scroll-left 12s linear infinite; /* Faster for mobile */
+  display: inline-flex;
+}
+.animate-scroll-right {
+  animation: scroll-right 12s linear infinite; /* Faster for mobile */
+  display: inline-flex;
+}
+/* Desktop: slower animation */
+@media (min-width: 400px) {
+  .animate-scroll-left {
+    animation: scroll-left 20s linear infinite;
+  }
+  .animate-scroll-right {
+    animation: scroll-right 20s linear infinite;
+  }
+}
