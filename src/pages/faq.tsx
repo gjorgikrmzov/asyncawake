@@ -1,4 +1,6 @@
 import FaqList from "@/components/faq-list";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import { MessageQuestion } from "iconsax-react";
 
 const Faq = () => {

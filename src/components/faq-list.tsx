@@ -15,7 +15,7 @@ const FaqList = () => {
           "Costs vary based on how complex the assistant is. We can start small with a lightweight setup at a lower cost, then scale up as your needs grow. You're in control the whole way.",
       },
       {
-        question: "Will I need to train the bot myself?",
+        question: "Will I need to train the assistant myself?",
         answer:
           "No training needed on your end. You give us the info—we do the setup and make sure it works right.",
       },

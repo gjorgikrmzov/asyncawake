@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import {
   AnimatePresence,
+  delay,
   motion,
   useAnimation,
   useInView,
@@ -61,7 +62,7 @@ const MotionInView = memo(({ children, variants, custom, ...props }: any) => {
 MotionInView.displayName = "MotionInView";
 
 // Memoized FeatureCard component for "Why Choose AI" section
-const FeatureCard = memo(({ icon: Icon, title, description }: any) => (
+const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
   <div className="flex-col w-full lg:w-fit flex justify-start items-start">
     <MotionInView
       variants={{
@@ -74,13 +75,42 @@ const FeatureCard = memo(({ icon: Icon, title, description }: any) => (
         },
       }}
     >
-      <Icon variant="Bulk" size={56} color="#5E27F6" />
+      <Icon variant="Bulk" size={64} color="#5E27F6" />
     </MotionInView>
+
     <div className="mt-6 flex-col">
-      <h1 className="font-medium text-[26px] text-[#ffffff]">{title}</h1>
-      <p className="font-medium text-[#ffffff]/80 mt-2 md:mt-4">
-        {description}
-      </p>
+      <MotionInView
+        variants={{
+          initial: { y: 80, opacity: 0 },
+          animate: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              ease: [0.6, 0.01, 0.05, 0.95],
+            },
+          },
+        }}
+      >
+        <h1 className="font-medium text-[26px] text-[#ffffff]">{title}</h1>
+      </MotionInView>
+
+      <MotionInView
+        variants={{
+          initial: { y: 80, opacity: 0 },
+          animate: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.1,
+              ease: [0.6, 0.01, 0.05, 0.95],
+            },
+          },
+        }}
+      >
+        <p className="font-medium text-[#ffffff]/80 mt-2 md:mt-4">
+          {description}
+        </p>
+      </MotionInView>
     </div>
   </div>
 ));
@@ -594,7 +624,7 @@ export default function Home() {
 
         <div className="flex flex-col lg:flex-row gap-y-10 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-20">
           {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
+            <FeatureCard key={index} index={index} {...feature} />
           ))}
         </div>
       </div>
