@@ -103,7 +103,7 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div className="flex space-x-6 justify-center md:flex-row flex-col md:space-y-0 space-y-2 sm:justify-start">
             <a
-              href="https://www.instagram.com/async.awake/"
+              href="https://www.instagram.com/asyncawakecom/"
               target="_blank"
               className="text-white flex items-center gap-x-2 hover:underline"
             >

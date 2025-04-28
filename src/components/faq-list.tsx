@@ -1,11 +1,16 @@
 import React, { useMemo } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 
 const FaqList = () => {
   const faqItems = useMemo(
     () => [
       {
-        question: "What does an Assistant actually do?",
+        question: "What kind of tasks can the Assistant take off my plate?",
         answer:
           "It answers questions, helps customers, books appointments, handles internal stuff—without taking a break. You get more done without hiring more people.",
       },
@@ -15,9 +20,24 @@ const FaqList = () => {
           "Costs vary based on how complex the assistant is. We can start small with a lightweight setup at a lower cost, then scale up as your needs grow. You're in control the whole way.",
       },
       {
-        question: "Will I need to train the assistant myself?",
+        question: "Will i need to train the Assistant myself?",
         answer:
-          "No training needed on your end. You give us the info—we do the setup and make sure it works right.",
+          "No, you won’t need to train the bot yourself. You provide the necessary details, and we handle the entire setup process, ensuring the bot is configured correctly and runs smoothly to meet your needs without any extra effort on your part.",
+      },
+      {
+        question: "Is it secure to let an assistant handle sensitive info?",
+        answer:
+          "Absolutely. We set up strict access rules and follow best security practices to keep your data safe.",
+      },
+      {
+        question: "Will it blend into how I already work?",
+        answer:
+          "Yes. We connect it with your existing tools like Slack, email, CRMs, and more—no need to change your workflow.",
+      },
+      {
+        question: "What kind of ongoing support do I get after setup?",
+        answer:
+          "We don’t just hand you the keys—we provide continuous guidance, monitoring, and updates to keep your assistant running smoothly.",
       },
       {
         question: "Didn’t see your question here?",
@@ -33,13 +53,13 @@ const FaqList = () => {
       {faqItems.map((item, index) => (
         <AccordionItem key={index} value={`item-${index + 1}`}>
           <AccordionTrigger className="text-md md:text-xl cursor-pointer py-6">
-            <span className="flex items-center gap-x-4">
-              <p className="font-normal text-[#5E27F6]">0{index + 1}</p>
+            <span className="flex items-center font-normal gap-x-4">
+              <p className="font-bold text-[#5E27F6]">0{index + 1}.</p>
               {item.question}
             </span>
           </AccordionTrigger>
-          <AccordionContent className="text-sm md:text-[16px] text-white/85">
-            {item.answer}
+          <AccordionContent className="text-sm md:text-[16px] text-white/90">
+            - {item.answer}
           </AccordionContent>
         </AccordionItem>
       ))}
