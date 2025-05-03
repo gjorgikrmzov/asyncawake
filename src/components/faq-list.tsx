@@ -54,7 +54,7 @@ const FaqList = () => {
         <AccordionItem key={index} value={`item-${index + 1}`}>
           <AccordionTrigger className="text-md md:text-xl cursor-pointer py-6">
             <span className="flex items-center font-normal gap-x-4">
-              <p className="font-bold text-[#5E27F6]">0{index + 1}.</p>
+              <p className="font-medium text-[#5E27F6]">0{index + 1}.</p>
               {item.question}
             </span>
           </AccordionTrigger>

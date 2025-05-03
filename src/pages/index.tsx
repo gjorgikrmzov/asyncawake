@@ -5,6 +5,7 @@ import FaqList from "@/components/faq-list";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import {
+  animate,
   AnimatePresence,
   delay,
   motion,
@@ -14,6 +15,7 @@ import {
 import {
   Add,
   ArrowDown,
+  ArrowRight,
   Award,
   Briefcase,
   CallCalling,
@@ -21,6 +23,7 @@ import {
   Convertshape,
   Data2,
   DollarCircle,
+  ExportSquare,
   Flash,
   I24Support,
   KeySquare,
@@ -63,22 +66,27 @@ MotionInView.displayName = "MotionInView";
 
 // Memoized FeatureCard component for "Why Choose AI" section
 const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
-  <div className="flex-col w-full lg:w-fit flex justify-start items-start">
-    <MotionInView
-      variants={{
-        initial: { scale: 0, opacity: 0, rotate: -360 },
-        animate: {
-          opacity: 1,
-          scale: 1,
-          rotate: 0,
-          transition: { type: "spring" },
-        },
-      }}
-    >
-      <Icon variant="Bulk" size={64} color="#5E27F6" />
-    </MotionInView>
+  <div className="flex-col w-full lg:w-fit flex group  justify-start items-start">
+    <div className="flex  w-full justify-between items-start">
+      <MotionInView
+        className="p-4 rounded-3xl  bg-[#181819] border-3 border-white/10"
+        variants={{
+          initial: { scale: 0, opacity: 0 },
+          animate: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+              ease: [0.6, 0.01, 0.05, 0.95],
+              duration: 0.5,
+            },
+          },
+        }}
+      >
+        <Icon size={54} color="#fff" variant="TwoTone" />
+      </MotionInView>
+    </div>
 
-    <div className="mt-6 flex-col">
+    <div className="mt-8 flex-col">
       <MotionInView
         variants={{
           initial: { y: 80, opacity: 0 },
@@ -96,13 +104,11 @@ const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
 
       <MotionInView
         variants={{
-          initial: { y: 80, opacity: 0 },
+          initial: { opacity: 0 },
           animate: {
             opacity: 1,
-            y: 0,
             transition: {
-              delay: 0.1,
-              ease: [0.6, 0.01, 0.05, 0.95],
+              delay: 0.2,
             },
           },
         }}
@@ -134,14 +140,23 @@ const SolutionCard = memo(
         },
       }}
     >
-      <SpotlightCard
-        className="p-6 bg-gradient-to-tr from-[#070707] via-[#070707]/40 to-[rgba(192, 192, 192, 0.3)] rounded-4xl h-full"
-        spotlightColor="rgba(192, 192, 192, 0.3)"
+      <div
+        onClick={() => onViewDetails(solution)}
+        className="p-8 group  cursor-pointer bg-[#181819] border-3 border-white/10 rounded-4xl h-full"
       >
-        <div className="flex flex-col h-full">
-          <Icon variant="TwoTone" size={50} color="#5e27f6" />
+        <div className="flex flex-col justify-start items-start h-full">
+          <Icon size={54} color="#fff" variant="TwoTone" />
           <div className="mt-10 flex-grow">
-            <h2 className="text-xl text-white font-medium">{title}</h2>
+            <div className="flex items-center gap-x-4">
+              <h2 className="text-2xl text-white font-medium">{title}</h2>
+
+              <ExportSquare
+                className="group-hover:scale-100 scale-0 transition-all duration-200"
+                variant="TwoTone"
+                size={22}
+                color="#fff"
+              />
+            </div>
             <p className="mt-2 text-white/80">{description}</p>
           </div>
 
@@ -151,12 +166,15 @@ const SolutionCard = memo(
             className="w-fit mt-6"
             onClick={() => onViewDetails(solution)}
           >
-            <div className="bg-white px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-              <p className="text-[#070707] text-sm md:text-md">View Details</p>
+            <div className="bg-[#fff] px-4 cursor-pointer md:px-6 py-3 md:py-3 flex items-center gap-x-2 rounded-full">
+              <p className="text-[#000] font-medium text-sm md:text-md">
+                Details
+              </p>
+              <ArrowRight variant="Broken" size={17} color="#000" />
             </div>
           </motion.div>
         </div>
-      </SpotlightCard>
+      </div>
     </MotionInView>
   )
 );
@@ -219,21 +237,25 @@ export default function Home() {
       {
         icon: Flash,
         title: "Boost Efficiency",
+        numberLabel: "01",
         description: "Automate tasks so your team focuses on high-value work",
       },
       {
         icon: DollarCircle,
         title: "Cost Savings",
+        numberLabel: "02",
         description: "Reduce operational expenses with scalable solutions.",
       },
       {
         icon: ColorSwatch,
         title: "Personalized",
+        numberLabel: "03",
         description: "Tailor conversations to your business and customer needs",
       },
       {
         icon: I24Support,
         title: "Customer Support",
+        numberLabel: "04",
         description: "Handle inquiries anytime with intelligent assistant-bot",
       },
     ],
@@ -247,7 +269,7 @@ export default function Home() {
         icon: Messages1,
         title: "AI Assistant Bot",
         description:
-          "Engage customers 24/7 with intelligent, conversational AI that improves support and boosts sales.",
+          "Engage customers 24/7 with conversational AI that improves support and boosts sales",
         features: [
           "24/7 customer engagement",
           "Natural language processing",
@@ -264,7 +286,7 @@ export default function Home() {
         icon: TrendUp,
         title: "AI Automation",
         description:
-          "Automate the boring stuff, cut costs, and speed up operations—without burning out your team.",
+          "Automate the boring stuff, cut costs, and speed up operations—without burning out your team",
         features: [
           "Task automation",
           "Workflow integration",
@@ -285,7 +307,7 @@ export default function Home() {
         icon: VoiceSquare,
         title: "Voice Agent",
         description:
-          "Provide seamless, 24/7 customer support with intelligent voice Assistant that enhances engagement and efficiency.",
+          "24/7 support with an intelligent voice assistant that improves engagement and efficiency",
         features: [
           "Voice recognition",
           "Multi-language support",
@@ -377,6 +399,8 @@ export default function Home() {
     );
   };
 
+  // 0d0d0e black
+  // 181819 gray
   return (
     <div className="h-full">
       <head>
@@ -389,7 +413,7 @@ export default function Home() {
 
       <Header />
 
-      <div className="absolute z-0 left-0 top-0 w-full h-screen md:h-[100vh]">
+      <div className="absolute z-0 left-0 top-0 w-full h-screen md:h-hull">
         <Squares
           speed={0}
           squareSize={60}
@@ -399,8 +423,8 @@ export default function Home() {
         />
       </div>
 
-      <div className="z-10 h-[100svh] md:h-full py-0 md:py-28 justify-between flex flex-col">
-        <div></div>
+      <div className="z-10 h-[100svh] md:h-[90vh] relative justify-between flex flex-col">
+        <div className=""></div>
 
         <div className="justify-center flex-col items-center flex">
           <div className="z-[50] bg-[#fff]/10 border-2 backdrop-blur-2xl flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
@@ -413,7 +437,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 text-center text-white leading-14 lg:leading-16 text-5xl lg:text-6xl font-medium"
+                className="overflow-hidden mt-6 z-0 text-center text-white leading-14 lg:leading-20 text-5xl lg:text-7xl font-medium"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -510,7 +534,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className="z-0 text-center text-white pb-6 leading-14 lg:leading-16 text-5xl lg:text-6xl font-medium"
+                  className="z-0 text-center text-white pb-6 leading-14 lg:leading-20 text-5xl lg:text-7xl font-medium"
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -537,7 +561,7 @@ export default function Home() {
                 whileTap={{ scale: 1.1 }}
               >
                 <div className="bg-white px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                  <p className="text-[#070707] font-medium text-sm md:text-md">
+                  <p className="text-[#0d0d0e] font-medium text-sm md:text-md">
                     Get Started
                   </p>
                 </div>
@@ -547,7 +571,7 @@ export default function Home() {
         </div>
 
         <div></div>
-        <div></div>
+        <div className="flex md:hidden"></div>
       </div>
 
       <InfiniteScrollText />
@@ -593,7 +617,7 @@ export default function Home() {
               >
                 <MessageQuestion
                   color="#5E27F6"
-                  className="rotate-12 w-12 md:w-20"
+                  className="rotate-12 w-14 md:w-20"
                   variant="Bulk"
                 />
               </MotionInView>
@@ -618,11 +642,9 @@ export default function Home() {
           </p>
         </MotionInView>
 
-        <div className="w-full flex justify-center items-center">
-          <div className="w-[85%] bg-[#fff]/10 h-[1px] mt-20"></div>
-        </div>
+        <div className="w-full flex justify-center items-center"></div>
 
-        <div className="flex flex-col lg:flex-row gap-y-10 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-20">
+        <div className="flex flex-col lg:flex-row gap-y-10 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-40">
           {features.map((feature, index) => (
             <FeatureCard key={index} index={index} {...feature} />
           ))}
@@ -656,7 +678,7 @@ export default function Home() {
               </div>
 
               <h1 className="text-[42px] mt-6 leading-12 lg:leading-18 lg:text-7xl">
-                Services & <br className="hidden md:flex" /> Growth
+                Our Services, <br className="hidden md:flex" /> Your Growth
               </h1>
             </div>
           </MotionInView>
@@ -755,7 +777,7 @@ export default function Home() {
                   stiffness: 300,
                   type: "spring",
                 }}
-                className="h-[90%] z-10 flex flex-col justify-start lg:justify-between w-full lg:w-2/3 rounded-4xl bg-gradient-to-tr from-[#070707]/90 via-[#121212]/85 to-[#151515]/80 p-8 md:p-10 overflow-y-auto pointer-events-auto"
+                className="h-[90%] z-10 flex flex-col justify-start lg:justify-between w-full lg:w-2/3 rounded-4xl bg-gradient-to-tr from-[#0d0d0e]/90 via-[#121212]/85 to-[#151515]/80 p-8 md:p-10 overflow-y-auto pointer-events-auto"
               >
                 <div className="flex items-center justify-between">
                   <h1 className="text-[#FFF] font-medium flex text-2xl items-center gap-x-2">
@@ -894,7 +916,7 @@ export default function Home() {
                           whileHover={{ scale: 1.101 }}
                           whileTap={{ scale: 1.1 }}
                         >
-                          <div className="text-[#070707] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                          <div className="text-[#0d0d0e] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
                             Consultation
                           </div>
                         </motion.div>
@@ -906,7 +928,7 @@ export default function Home() {
                           whileHover={{ scale: 1.101 }}
                           whileTap={{ scale: 1.1 }}
                         >
-                          <div className="text-[#070707] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                          <div className="text-[#0d0d0e] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
                             Request Demo
                           </div>
                         </motion.div>
@@ -931,8 +953,8 @@ export default function Home() {
             <p className="text-white">FAQ</p>
             <MessageQuestion
               variant="Bulk"
-              className="relative bottom-[1px]"
               size={18}
+              className="relative  bottom-[1px]"
               color="#fff"
             />
           </div>
@@ -994,98 +1016,224 @@ export default function Home() {
           }}
         >
           <div className="mt-20 flex md:hidden flex-col">
-            <div>
-              <div className="flex gap-x-4 items-start">
-                <div className="flex flex-col justify-center items-center">
-                  <div className="w-10 h-10 text-lg justify-center items-center flex rounded-full text-[#070707] bg-[#fff] font-semibold">
-                    <span>1</span>
-                  </div>
-                  <div className="h-24 w-[2px] bg-[#5e27f6]"></div>
+            <div className="flex  items-start">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-x-6">
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        scale: 1,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>01</span>
+                  </MotionInView>
+                  <div className="text-white text-xl">Consultation</div>
                 </div>
-                <div className="text-white text-lg">Consultation</div>
+
+                <MotionInView
+                  variants={{
+                    initial: {
+                      scaleY: 0,
+                    },
+                    animate: {
+                      scaleY: 1,
+                      transition: {
+                        delay: 0.1,
+                        ease: smoothEase,
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  className="h-24 w-[2px] origin-top my-3 relative left-10 bg-[#5e27f6]"
+                ></MotionInView>
               </div>
             </div>
 
-            <div>
-              <div className="flex gap-x-4 items-start">
-                <div className="flex flex-col justify-center items-center">
-                  <div className="w-10 h-10 text-lg justify-center items-center flex rounded-full text-[#070707] bg-[#fff] font-semibold">
-                    <span>2</span>
-                  </div>
-                  <div className="h-24 w-[2px] bg-[#5e27f6]"></div>
+            <div className="flex  items-start">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-x-6">
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        scale: 1,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>02</span>
+                  </MotionInView>
+                  <div className="text-white text-xl">Develop</div>
                 </div>
-                <div className="text-white text-lg">Develop</div>
+
+                <MotionInView
+                  variants={{
+                    initial: {
+                      scaleY: 0,
+                    },
+                    animate: {
+                      scaleY: 1,
+                      transition: {
+                        delay: 0.1,
+                        ease: smoothEase,
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  className="h-24 w-[2px] my-3 relative origin-top left-10 bg-[#5e27f6]"
+                ></MotionInView>
               </div>
             </div>
 
-            <div>
-              <div className="flex gap-x-4 items-start">
-                <div className="flex flex-col justify-center items-center">
-                  <div className="w-10 h-10 text-lg justify-center items-center flex rounded-full text-[#070707] bg-[#fff] font-semibold">
-                    <span>3</span>
-                  </div>
+            <div className="flex  items-start">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-x-6">
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        scale: 1,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>03</span>
+                  </MotionInView>
+                  <div className="text-white text-xl">Deploy</div>
                 </div>
-                <div className="text-white text-lg">Deploy</div>
               </div>
             </div>
           </div>
         </MotionInView>
 
-        <MotionInView
-          variants={{
-            initial: { opacity: 0, y: 80 },
-            animate: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.5, ease: smoothEase, delay: 0.3 },
-            },
-          }}
-        >
+        <div>
           <div className="mt-20 hidden md:flex items-center">
             <div className="flex flex-col items-center">
               <div className="flex relative items-center">
                 <div className="flex relative flex-col items-center justify-center">
-                  <div className="w-10 h-10 text-[#070707]/80 text-lg justify-center items-center flex rounded-full bg-[#fff] font-semibold">
-                    <span>1</span>
-                  </div>
-                  <div className="absolute -bottom-10 text-white">
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        scale: 1,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>01</span>
+                  </MotionInView>
+                  <div className="absolute -bottom-14 text-white text-xl">
                     Consultation
                   </div>
                 </div>
-                <div className="w-24 mx-2 h-[2px] bg-[#5e27f6]"></div>
+
+                <MotionInView
+                  variants={{
+                    initial: {
+                      scaleX: 0,
+                    },
+                    animate: {
+                      scaleX: 1,
+                      transition: {
+                        delay: 0.1,
+                        ease: smoothEase,
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  className="w-24 origin-left mx-2 h-[2px] bg-[#5e27f6]"
+                ></MotionInView>
               </div>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="flex relative items-center">
                 <div className="flex relative flex-col items-center justify-center">
-                  <div className="w-10 h-10 text-[#070707]/80 text-lg justify-center items-center flex rounded-full bg-[#fff] font-semibold">
-                    <span>2</span>
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        scale: 1,
+                        delay: 0.2,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>02</span>
+                  </MotionInView>
+                  <div className="absolute -bottom-14 text-white text-xl">
+                    Develop
                   </div>
-                  <div className="absolute -bottom-10 text-white">Develop</div>
                 </div>
-                <div className="w-24 mx-2 h-[2px] bg-[#5e27f6]"></div>
+                <MotionInView
+                  variants={{
+                    initial: {
+                      scaleX: 0,
+                    },
+                    animate: {
+                      scaleX: 1,
+                      transition: {
+                        delay: 0.3,
+                        ease: smoothEase,
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  className="w-24 mx-2 h-[2px] origin-left bg-[#5e27f6]"
+                ></MotionInView>
               </div>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="flex relative items-center">
                 <div className="flex relative flex-col items-center justify-center">
-                  <div className="w-10 h-10 text-[#070707]/80 text-lg justify-center items-center flex rounded-full bg-[#fff] font-semibold">
-                    <span>3</span>
+                  <MotionInView
+                    variants={{
+                      initial: {
+                        scale: 0,
+                      },
+                      animate: {
+                        delay: 0.4,
+                        scale: 1,
+                        transition: { ease: smoothEase, duration: 0.5 },
+                      },
+                    }}
+                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                  >
+                    <span>03</span>
+                  </MotionInView>
+                  <div className="absolute -bottom-14 text-white text-xl">
+                    Deploy
                   </div>
-                  <div className="absolute -bottom-10 text-white">Deploy</div>
                 </div>
               </div>
             </div>
           </div>
-        </MotionInView>
+        </div>
       </div>
 
       <div className="h-full flex flex-col justify-center items-center pt-30">
         <MotionInView className="w-min" variants={scaleRotateVariants}>
           <div className="w-34 h-34 rounded-full bg-[#fff] backdrop-blur-2xl flex justify-center items-center">
-            <Briefcase variant="Bulk" size={46} color={"#070707"} />
+            <Briefcase variant="Bulk" size={46} color={"#0d0d0e"} />
           </div>
         </MotionInView>
 
@@ -1117,7 +1265,7 @@ export default function Home() {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 1.1 }}
               >
-                <div className="text-[#070707] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                <div className="text-[#0d0d0e] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
                   <CallCalling variant="TwoTone" color={"#000"} size={20} />
                   Book
                 </div>
@@ -1135,7 +1283,7 @@ export default function Home() {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 1.1 }}
             >
-              <div className="text-[#070707] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+              <div className="text-[#0d0d0e] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
                 <Sms variant="TwoTone" color={"#000"} size={20} />
                 Email
               </div>

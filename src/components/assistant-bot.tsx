@@ -11,7 +11,7 @@ const AssistantBot: React.FC = () => {
 
     script.onload = () => {
       window.voiceflow.chat.load({
-        verify: { projectID: "68021a630d7a6d3cd0525204" },
+        verify: { projectID: "68111de2c45b0a1bf44d694c" },
         url: "https://general-runtime.voiceflow.com",
         versionID: "production",
       });

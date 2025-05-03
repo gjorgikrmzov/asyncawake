@@ -11,7 +11,7 @@ export default function Home() {
           name="description"
           content="Referral Partner Guide for Async Awake's AI-powered virtual assistants and automation services"
         />
-        <link
+        <link 
           href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap"
           rel="stylesheet"
         />
