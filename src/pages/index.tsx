@@ -1,13 +1,10 @@
 import Magnet from "@/animations/Magnet/Magnet";
-import SpotlightCard from "@/animations/SpotlightCard/SpotlightCard";
 import Squares from "@/backgrounds/Squares/Squares";
 import FaqList from "@/components/faq-list";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import {
-  animate,
   AnimatePresence,
-  delay,
   motion,
   useAnimation,
   useInView,
@@ -18,7 +15,6 @@ import {
   ArrowRight,
   Award,
   Briefcase,
-  CallCalling,
   ColorSwatch,
   Convertshape,
   Data2,
@@ -30,8 +26,9 @@ import {
   LampCharge,
   MessageQuestion,
   Messages1,
+  NoteAdd,
   RecordCircle,
-  Sms,
+  Setting2,
   TrendUp,
   VoiceSquare,
 } from "iconsax-react";
@@ -66,10 +63,10 @@ MotionInView.displayName = "MotionInView";
 
 // Memoized FeatureCard component for "Why Choose AI" section
 const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
-  <div className="flex-col w-full lg:w-fit flex group  justify-start items-start">
-    <div className="flex  w-full justify-between items-start">
+  <div className="md:flex-col flex-row w-full lg:w-fit gap-x-7 md:gap-x-0 flex group  justify-start items-center md:items-start">
+    <div className="flex w-fit  items-start">
       <MotionInView
-        className="p-4 rounded-3xl  bg-[#181819] border-3 border-white/10"
+        className="p-5 rounded-4xl  bg-[#F9F9F9] "
         variants={{
           initial: { scale: 0, opacity: 0 },
           animate: {
@@ -82,42 +79,31 @@ const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
           },
         }}
       >
-        <Icon size={54} color="#fff" variant="TwoTone" />
+        <Icon size={54} color="#5E27F6" variant="Bulk" />
       </MotionInView>
     </div>
 
-    <div className="mt-8 flex-col">
-      <MotionInView
-        variants={{
-          initial: { y: 80, opacity: 0 },
-          animate: {
-            opacity: 1,
-            y: 0,
-            transition: {
-              ease: [0.6, 0.01, 0.05, 0.95],
-            },
+    <MotionInView
+      variants={{
+        initial: { y: 80, opacity: 0 },
+        animate: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            ease: [0.6, 0.01, 0.05, 0.95],
           },
-        }}
-      >
-        <h1 className="font-medium text-[26px] text-[#ffffff]">{title}</h1>
-      </MotionInView>
+        },
+      }}
+      className="mt-0 md:mt-8 flex-col"
+    >
+      <h1 className=" font-medium tracking-tighter text-2xl md:text-[28px] text-[#0d0d0e]">
+        {title}
+      </h1>
 
-      <MotionInView
-        variants={{
-          initial: { opacity: 0 },
-          animate: {
-            opacity: 1,
-            transition: {
-              delay: 0.2,
-            },
-          },
-        }}
-      >
-        <p className="font-medium text-[#ffffff]/80 mt-2 md:mt-4">
-          {description}
-        </p>
-      </MotionInView>
-    </div>
+      <p className="text-md md:text-lg font-medium  text-[#0d0d0e]/70 mt-2 md:mt-4">
+        {description}
+      </p>
+    </MotionInView>
   </div>
 ));
 FeatureCard.displayName = "FeatureCard";
@@ -142,36 +128,37 @@ const SolutionCard = memo(
     >
       <div
         onClick={() => onViewDetails(solution)}
-        className="p-8 group  cursor-pointer bg-[#181819] border-3 border-white/10 rounded-4xl h-full"
+        className="p-10 pb-14 group relative  cursor-pointer overflow-hidden bg-[#F9F9F9] rounded-4xl h-full"
       >
+        <div className="transition-all group-hover:rotate-45 duration-200 absolute rotate-12 -right-18 z-0 -bottom-18 ">
+          <Icon size={220} color="#5E27F6" variant="Bulk" />
+        </div>
+
         <div className="flex flex-col justify-start items-start h-full">
-          <Icon size={54} color="#fff" variant="TwoTone" />
-          <div className="mt-10 flex-grow">
+          <div className="flex-grow">
             <div className="flex items-center gap-x-4">
-              <h2 className="text-2xl text-white font-medium">{title}</h2>
+              <h2 className="text-2xl text-[#0d0d0e] font-semibold gap-x-2">
+                <span className="text-[#5E27F6]">0{index + 1}</span> {title}
+              </h2>
 
               <ExportSquare
                 className="group-hover:scale-100 scale-0 transition-all duration-200"
                 variant="TwoTone"
                 size={22}
-                color="#fff"
+                color="#0d0d0e"
               />
             </div>
-            <p className="mt-2 text-white/80">{description}</p>
+            <p className="mt-2 text-[#0d0d0e]/80 font-medium">{description}</p>
           </div>
 
           <motion.div
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 1.1 }}
-            className="w-fit mt-6"
+            className="w-fit mt-14 gap-x-2 items-center flex"
             onClick={() => onViewDetails(solution)}
           >
-            <div className="bg-[#fff] px-4 cursor-pointer md:px-6 py-3 md:py-3 flex items-center gap-x-2 rounded-full">
-              <p className="text-[#000] font-medium text-sm md:text-md">
-                Details
-              </p>
-              <ArrowRight variant="Broken" size={17} color="#000" />
-            </div>
+            <p className="text-[#000] font-medium md:text-md">Details</p>
+            <ArrowRight variant="TwoTone" size={20} color="#000" />
           </motion.div>
         </div>
       </div>
@@ -254,7 +241,7 @@ export default function Home() {
       },
       {
         icon: I24Support,
-        title: "Customer Support",
+        title: "Customer Inquiries",
         numberLabel: "04",
         description: "Handle inquiries anytime with intelligent assistant-bot",
       },
@@ -283,7 +270,7 @@ export default function Home() {
         useCases: ["E-commerce support", "Booking systems", "FAQ automation"],
       },
       {
-        icon: TrendUp,
+        icon: Setting2,
         title: "AI Automation",
         description:
           "Automate the boring stuff, cut costs, and speed up operations—without burning out your team",
@@ -331,8 +318,8 @@ export default function Home() {
   // Memoized FAQ items
 
   // Memoized event handlers
-  const handleRequestDemo = useCallback(() => {
-    router.push("/contact");
+  const handleApplyNow = useCallback(() => {
+    router.push("/apply");
   }, [router]);
 
   const handleViewDetails = useCallback((solution: any) => {
@@ -347,7 +334,7 @@ export default function Home() {
   const InfiniteScrollText = () => {
     const words = [
       "AI Assistant-Bot",
-      "Customer Support",
+      "Customer Inquiries",
       "Automation",
       "Boost Efficiency",
     ];
@@ -355,7 +342,7 @@ export default function Home() {
     const wordsOpposite = [
       "Boost Efficiency",
       "Automation",
-      "Customer Support",
+      "Customer Inquiries",
       "AI Assistant-Bot",
     ];
 
@@ -367,14 +354,10 @@ export default function Home() {
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-4xl flex flex-row items-center lg:text-7xl font-medium text-white"
+                className=" text-4xl flex flex-row items-center lg:text-7xl font-semibold tracking-tighter   text-[#0d0d0e]"
               >
                 {words[(i + 1) % words.length]}
-                <RecordCircle
-                  className="mx-3 md:mx-6 w-4 md:w-8"
-                  variant="Bulk"
-                  color="#5E27F6"
-                />
+                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-8xl text-[#5E27F6]">*</sub>
               </span>
             ))}
           </div>
@@ -383,14 +366,10 @@ export default function Home() {
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-4xl flex flex-row items-center lg:text-7xl font-medium text-white"
+                className=" text-4xl flex flex-row items-center lg:text-7xl font-semibold tracking-tighter text-[#0d0d0e]"
               >
                 {wordsOpposite[(i + 1) % wordsOpposite.length]}
-                <RecordCircle
-                  className="mx-3 md:mx-6 w-4 md:w-8"
-                  variant="Bulk"
-                  color="#5E27F6"
-                />
+                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-8xl text-[#5E27F6]">*</sub>
               </span>
             ))}
           </div>
@@ -400,7 +379,7 @@ export default function Home() {
   };
 
   // 0d0d0e black
-  // 181819 gray
+  // F9F9F9 gray
   return (
     <div className="h-full">
       <head>
@@ -418,7 +397,7 @@ export default function Home() {
           speed={0}
           squareSize={60}
           direction="down"
-          borderColor={"#ffffff" + "2A"}
+          borderColor={"#0d0d0e" + "2A"}
           hoverFillColor="transparent"
         />
       </div>
@@ -427,9 +406,9 @@ export default function Home() {
         <div className=""></div>
 
         <div className="justify-center flex-col items-center flex">
-          <div className="z-[50] bg-[#fff]/10 border-2 backdrop-blur-2xl flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-white">AI-Powered Services</p>
-            <Data2 variant="Bulk" size={18} color="#fff" />
+          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+            <p className="text-[#5e27f6] font-medium">AI-Powered Services</p>
+            <Data2 variant="Bulk" size={18} color="#5E27F6" />
           </div>
 
           <div className="flex-col z-1 flex items-center justify-center">
@@ -437,7 +416,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 text-center text-white leading-14 lg:leading-20 text-5xl lg:text-7xl font-medium"
+                className="overflow-hidden mt-6 z-0 tracking-tighter text-center text-[#0d0d0e] leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -453,7 +432,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 leading-13.5 text-center text-white  text-5xl font-medium"
+                className="overflow-hidden mt-6 z-0 leading-13.5 text-center text-[#0d0d0e]  text-5xl font-semibold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -469,7 +448,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-13.5 text-center text-5xl font-medium"
+                className="overflow-hidden z-0 leading-13.5 text-center text-5xl font-semibold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -485,7 +464,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-13.5 text-center text-5xl font-medium"
+                className="overflow-hidden z-0 leading-16 text-center text-5xl font-semibold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -501,7 +480,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-13.5 text-center text-5xl font-medium"
+                className="overflow-hidden z-0 leading-14 text-center text-5xl font-semibold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -518,7 +497,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className=" z-0 text-center text-white pb-6  leading-14 lg:leading-16 text-5xl lg:text-6xl font-medium"
+                  className=" z-0 text-center tracking-tighter text-[#0d0d0e] pb-6  leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -534,7 +513,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className="z-0 text-center text-white pb-6 leading-14 lg:leading-20 text-5xl lg:text-7xl font-medium"
+                  className="z-0 text-center text-[#0d0d0e] tracking-tighter pb-6 leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -548,21 +527,21 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="mx-6 md:px-0 text-center text-lg md:text-lg lg:text-xl text-white/80 ">
+          <p className="mx-6 md:px-0 text-center font-medium text-lg md:text-lg lg:text-xl text-[#0d0d0e]/80 ">
             We build smart assistants that answer questions, automate tasks,{" "}
             <br className="hidden sm:flex" />
             and free up your team’s time.
           </p>
 
           <Magnet padding={50} className="mt-8 md:mt-10" magnetStrength={40}>
-            <Link href="/contact">
+            <Link href="/apply">
               <motion.div
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 1.1 }}
               >
-                <div className="bg-white px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                  <p className="text-[#0d0d0e] font-medium text-sm md:text-md">
-                    Get Started
+                <div className="bg-[#0d0d0e] px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                  <p className="text-[#fff] font-medium text-sm md:text-md">
+                    Apply Now
                   </p>
                 </div>
               </motion.div>
@@ -578,7 +557,7 @@ export default function Home() {
 
       <div className="h-full py-30">
         <MotionInView variants={fadeInUpVariants}>
-          <h1 className="relative text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4 text-white text-[42px] leading-12 lg:leading-18 lg:text-7xl font-medium">
+          <h1 className="relative text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4 text-[#0d0d0e] text-[42px] leading-12 lg:leading-18 lg:text-7xl font-semibold tracking-tighter">
             <span className="gap-x-3 md:gap-x-4 flex">
               The
               <span className="relative inline-block">
@@ -592,7 +571,7 @@ export default function Home() {
                   <path
                     d="M5 8 Q50 2, 95 8"
                     stroke="#5E27F6"
-                    strokeWidth="1.5"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     fill="transparent"
                   />
@@ -635,7 +614,7 @@ export default function Home() {
             },
           }}
         >
-          <p className="text-center mx-6 text-md md:text-lg mt-10 text-white/80">
+          <p className="text-center font-medium mx-6 text-lg md:text-lg mt-10 text-[#0d0d0e]/80">
             Virtual Assistants handle the work for you while you & your team
             <br className="hidden md:block" />
             focus on what's important.
@@ -644,7 +623,7 @@ export default function Home() {
 
         <div className="w-full flex justify-center items-center"></div>
 
-        <div className="flex flex-col lg:flex-row gap-y-10 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-40">
+        <div className="flex flex-col lg:flex-row gap-y-20 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-40">
           {features.map((feature, index) => (
             <FeatureCard key={index} index={index} {...feature} />
           ))}
@@ -667,19 +646,19 @@ export default function Home() {
             }}
           >
             <div className="flex flex-col items-start">
-              <div className="bg-[#fff]/10 border-2 flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-                <p className="text-white">SOLUTIONS</p>
+              <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+                <p className="text-[#5e27f6] font-medium">Solutions</p>
                 <LampCharge
                   variant="Bulk"
                   className="relative bottom-[1px]"
                   size={18}
-                  color="#fff"
+                  color="#5E27F6"
                 />
               </div>
 
-              <h1 className="text-[42px] mt-6 leading-12 lg:leading-18 lg:text-7xl">
-                Our Services, <br className="hidden md:flex" /> Your Growth
-              </h1>
+              <div className="text-[42px] text-black font-semibold leading-12 lg:leading-18 lg:text-7xl mt-6">
+                Our Services, <br /> Your Growth
+              </div>
             </div>
           </MotionInView>
 
@@ -693,7 +672,7 @@ export default function Home() {
                 },
               }}
             >
-              <p className="text-md mt-10 lg:mt-0 text-white/90">
+              <p className="text-lg mt-10 font-medium lg:mt-0 text-[#0d0d0e]/90">
                 From answering customer questions to automating
                 <br className="hidden lg:flex" />
                 internal tasks—our assistants help you do more with less.
@@ -712,13 +691,13 @@ export default function Home() {
               <div className="flex items-center mt-6 gap-x-4">
                 <Magnet padding={50} magnetStrength={40}>
                   <motion.div
-                    onClick={handleRequestDemo}
+                    onClick={handleApplyNow}
                     whileHover={{ scale: 1.15 }}
                     whileTap={{ scale: 1.1 }}
                   >
-                    <div className="bg-none px-4 border-2 border-white/20 hover:bg-white/10 transition-all cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                      <p className="text-white text-sm md:text-md">
-                        Book a Call
+                    <div className="bg-none px-4  bg-[#0d0d0e]  transition-all cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                      <p className="text-[#F9F9F9] text-sm md:text-md">
+                        Apply Now
                       </p>
                     </div>
                   </motion.div>
@@ -777,17 +756,17 @@ export default function Home() {
                   stiffness: 300,
                   type: "spring",
                 }}
-                className="h-[90%] z-10 flex flex-col justify-start lg:justify-between w-full lg:w-2/3 rounded-4xl bg-gradient-to-tr from-[#0d0d0e]/90 via-[#121212]/85 to-[#151515]/80 p-8 md:p-10 overflow-y-auto pointer-events-auto"
+                className="h-[90%] z-10 flex flex-col justify-start lg:justify-between w-full lg:w-2/3 rounded-4xl bg-[#F9F9F9] p-8 md:p-10 overflow-y-auto pointer-events-auto"
               >
                 <div className="flex items-center justify-between">
-                  <h1 className="text-[#FFF] font-medium flex text-2xl items-center gap-x-2">
+                  <h1 className="text-[#0d0d0e] font-medium flex text-2xl items-center gap-x-2">
                     {selectedSolution?.title}
                   </h1>
 
                   <Add
                     onClick={() => setSelectedSolution(null)}
                     size={32}
-                    color="#fff"
+                    color="#0d0d0e"
                     variant="Linear"
                     className="rotate-45 cursor-pointer"
                   />
@@ -802,7 +781,7 @@ export default function Home() {
                         transition={{
                           delay: 0.1,
                         }}
-                        className="text-[#FFF]/80 font-medium text-md items-center gap-x-2"
+                        className="text-[#0d0d0e]/80 font-medium text-md items-center gap-x-2"
                       >
                         Description
                       </motion.h1>
@@ -813,7 +792,7 @@ export default function Home() {
                         transition={{
                           delay: 0.2,
                         }}
-                        className="mt-2 text-white text-lg"
+                        className="mt-2 font-medium text-[#0d0d0e] text-lg"
                       >
                         {selectedSolution?.description}
                       </motion.p>
@@ -829,7 +808,7 @@ export default function Home() {
                           }}
                           className="mb-6 lg:mb-0"
                         >
-                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-white">
+                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-[#0d0d0e]">
                             <KeySquare
                               variant="Bulk"
                               size={22}
@@ -838,10 +817,10 @@ export default function Home() {
                             />
                             <h3>Key Features</h3>
                           </div>
-                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-white/80">
+                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-[#0d0d0e]/80">
                             {selectedSolution.features.map(
                               (feature: string, idx: number) => (
-                                <li className="text-md" key={idx}>
+                                <li className="text-md font-medium" key={idx}>
                                   {feature}
                                 </li>
                               )
@@ -858,14 +837,14 @@ export default function Home() {
                             delay: 0.4,
                           }}
                         >
-                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-white">
+                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-[#0d0d0e]">
                             <Award variant="Bulk" size={22} color="#5E27F6" />
                             <h3>Benefits</h3>
                           </div>
-                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-white/80">
+                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-[#0d0d0e]/80">
                             {selectedSolution.benefits.map(
                               (benefit: string, idx: number) => (
-                                <li className="text-md" key={idx}>
+                                <li className="text-md font-medium" key={idx}>
                                   {benefit}
                                 </li>
                               )
@@ -884,7 +863,7 @@ export default function Home() {
                         transition={{
                           delay: 0.45,
                         }}
-                        className="flex flex-row items-center gap-x-2 text-white text-2xl font-medium"
+                        className="flex flex-row items-center gap-x-2 text-[#0d0d0e] text-2xl font-medium"
                       >
                         <span>Interested? Apply Now</span>
                         <ArrowDown variant="Bold" size={30} color="#5E27F6" />
@@ -895,10 +874,10 @@ export default function Home() {
                         transition={{
                           delay: 0.5,
                         }}
-                        className="mt-3 text-white/90"
+                        className="mt-3 font-medium text-[#0d0d0e]/90"
                       >
-                        You can apply either for a consultation or request a
-                        demo tailored to your needs.
+                        Apply for a free consultation today and see how we can
+                        help you save time & money with AI.
                       </motion.p>
                     </div>
 
@@ -910,26 +889,14 @@ export default function Home() {
                       }}
                       className="flex mt-6 w-full flex-col lg:flex-row items-center gap-x-2"
                     >
-                      <Link className="w-full lg:w-fit" href="/contact">
+                      <Link className="w-full lg:w-fit" href="/apply">
                         <motion.div
                           className="w-full lg:w-fit"
                           whileHover={{ scale: 1.101 }}
                           whileTap={{ scale: 1.1 }}
                         >
-                          <div className="text-[#0d0d0e] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                            Consultation
-                          </div>
-                        </motion.div>
-                      </Link>
-
-                      <Link className="w-full lg:w-fit" href="/contact">
-                        <motion.div
-                          className="w-full lg:w-fit"
-                          whileHover={{ scale: 1.101 }}
-                          whileTap={{ scale: 1.1 }}
-                        >
-                          <div className="text-[#0d0d0e] justify-center bg-white w-full lg:w-fit flex items-center gap-x-3 border-2 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                            Request Demo
+                          <div className="text-[#FFF] justify-center bg-black w-full lg:w-fit flex items-center gap-x-3 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                            Apply Now
                           </div>
                         </motion.div>
                       </Link>
@@ -949,16 +916,16 @@ export default function Home() {
           className="flex items-center flex-col"
           variants={fadeInUpVariants}
         >
-          <div className="bg-[#fff]/10 border-2 backdrop-blur-2xl flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-white">FAQ</p>
+          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+            <p className="text-[#5e27f6] font-medium">FAQ</p>
             <MessageQuestion
               variant="Bulk"
               size={18}
               className="relative  bottom-[1px]"
-              color="#fff"
+              color="#5E27F6"
             />
           </div>
-          <h1 className="mt-6 text-white text-center text-[42px] leading-12 lg:leading-20 lg:text-7xl font-medium">
+          <h1 className="mt-6 text-[#0d0d0e] text-center text-[42px] leading-12 lg:leading-20 lg:text-7xl font-semibold">
             Frequently <br />
             Asked Questions
           </h1>
@@ -973,16 +940,16 @@ export default function Home() {
             className="flex items-center flex-col"
             variants={fadeInUpVariants}
           >
-            <div className="bg-[#fff]/10 border-2 backdrop-blur-2xl flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-              <p className="text-white">OUR APPROACH</p>
+            <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+              <p className="text-[#5e27f6] font-medium">Our Approach</p>
               <Convertshape
                 variant="Bulk"
                 className="relative bottom-[1px]"
                 size={18}
-                color="#fff"
+                color="#5E27F6"
               />
             </div>
-            <h1 className="mt-6 text-white text-center text-[42px] leading-12 lg:leading-18 lg:text-7xl font-medium">
+            <h1 className="mt-6 text-[#0d0d0e] text-center text-[42px] leading-12 lg:leading-18 lg:text-7xl font-semibold">
               Implementation <br />
               Process
             </h1>
@@ -998,7 +965,7 @@ export default function Home() {
               },
             }}
           >
-            <p className="text-center mx-6 text-md md:text-lg mt-10 text-white/80">
+            <p className="text-center mx-6 font-medium text-lg md:text-lg mt-10 text-[#0d0d0e]/80">
               Book a free consult, we build the solution, then launch it.{" "}
               <br className="hidden md:flex" />
               No fluff—just done-for-you.
@@ -1029,11 +996,15 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9] "
                   >
                     <span>01</span>
                   </MotionInView>
-                  <div className="text-white text-xl">Consultation</div>
+                  <div>
+                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                      Consultation
+                    </div>
+                  </div>
                 </div>
 
                 <MotionInView
@@ -1050,7 +1021,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="h-24 w-[2px] origin-top my-3 relative left-10 bg-[#5e27f6]"
+                  className="h-24 w-[3px] rounded-2xl origin-top my-3 relative left-10 bg-[#5e27f6]"
                 ></MotionInView>
               </div>
             </div>
@@ -1068,11 +1039,16 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
                   >
                     <span>02</span>
                   </MotionInView>
-                  <div className="text-white text-xl">Develop</div>
+
+                  <div>
+                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                      Develop
+                    </div>
+                  </div>
                 </div>
 
                 <MotionInView
@@ -1089,7 +1065,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="h-24 w-[2px] my-3 relative origin-top left-10 bg-[#5e27f6]"
+                  className="h-24 w-[3px] my-3 rounded-2xl relative origin-top left-10 bg-[#5e27f6]"
                 ></MotionInView>
               </div>
             </div>
@@ -1107,11 +1083,16 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
                   >
                     <span>03</span>
                   </MotionInView>
-                  <div className="text-white text-xl">Deploy</div>
+
+                  <div>
+                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                      Deploy
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1133,11 +1114,11 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
                   >
                     <span>01</span>
                   </MotionInView>
-                  <div className="absolute -bottom-14 text-white text-xl">
+                  <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
                     Consultation
                   </div>
                 </div>
@@ -1156,7 +1137,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="w-24 origin-left mx-2 h-[2px] bg-[#5e27f6]"
+                  className="w-24 origin-left mx-2 h-[3px] rounded-2xl bg-[#5e27f6]"
                 ></MotionInView>
               </div>
             </div>
@@ -1171,15 +1152,18 @@ export default function Home() {
                       },
                       animate: {
                         scale: 1,
-                        delay: 0.2,
-                        transition: { ease: smoothEase, duration: 0.5 },
+                        transition: {
+                          delay: 0.2,
+                          ease: smoothEase,
+                          duration: 0.5,
+                        },
                       },
                     }}
-                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
                   >
                     <span>02</span>
                   </MotionInView>
-                  <div className="absolute -bottom-14 text-white text-xl">
+                  <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
                     Develop
                   </div>
                 </div>
@@ -1197,7 +1181,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="w-24 mx-2 h-[2px] origin-left bg-[#5e27f6]"
+                  className="w-24 mx-2 h-[3px] rounded-2xl origin-left bg-[#5e27f6]"
                 ></MotionInView>
               </div>
             </div>
@@ -1211,16 +1195,19 @@ export default function Home() {
                         scale: 0,
                       },
                       animate: {
-                        delay: 0.4,
                         scale: 1,
-                        transition: { ease: smoothEase, duration: 0.5 },
+                        transition: {
+                          delay: 0.4,
+                          ease: smoothEase,
+                          duration: 0.5,
+                        },
                       },
                     }}
-                    className="w-20 h-20 text-[#fff] text-2xl justify-center items-center flex rounded-3xl bg-[#181819] border-3 border-[#fff]/10 font-semibold"
+                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
                   >
                     <span>03</span>
                   </MotionInView>
-                  <div className="absolute -bottom-14 text-white text-xl">
+                  <div className="absolute -bottom-14 font-medium text-[#0d0d0e] text-xl">
                     Deploy
                   </div>
                 </div>
@@ -1232,14 +1219,14 @@ export default function Home() {
 
       <div className="h-full flex flex-col justify-center items-center pt-30">
         <MotionInView className="w-min" variants={scaleRotateVariants}>
-          <div className="w-34 h-34 rounded-full bg-[#fff] backdrop-blur-2xl flex justify-center items-center">
+          <div className="w-34 h-34 rounded-full bg-[#F9F9F9] backdrop-blur-2xl flex justify-center items-center">
             <Briefcase variant="Bulk" size={46} color={"#0d0d0e"} />
           </div>
         </MotionInView>
 
         <MotionInView variants={fadeInUpVariants}>
-          <h1 className="mt-8 mb-10 text-4xl md:text-6xl text-white text-center font-medium">
-            Book a call, <br />
+          <h1 className="mt-8 mb-10 text-4xl md:text-6xl text-[#0d0d0e] text-center font-semibold">
+            Apply Now, <br />
             let’s collaborate!
           </h1>
         </MotionInView>
@@ -1255,7 +1242,7 @@ export default function Home() {
           }}
         >
           <div className="flex items-center gap-x-4">
-            <Link href="/contact">
+            <Link href="/apply">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{
@@ -1265,29 +1252,12 @@ export default function Home() {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 1.1 }}
               >
-                <div className="text-[#0d0d0e] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                  <CallCalling variant="TwoTone" color={"#000"} size={20} />
-                  Book
+                <div className="text-[#fff] bg-[#0d0d0e] w-fit flex items-center gap-x-2 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                  <NoteAdd variant="TwoTone" color={"#fff"} size={20} />
+                  Apply Now
                 </div>
               </motion.div>
             </Link>
-
-            <motion.a
-              href="mailto:contact@asyncawake.com"
-              target="_blank"
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                transition: { duration: 0.5, ease: smoothEase, delay: 0.3 },
-              }}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 1.1 }}
-            >
-              <div className="text-[#0d0d0e] bg-white w-fit flex items-center gap-x-3 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                <Sms variant="TwoTone" color={"#000"} size={20} />
-                Email
-              </div>
-            </motion.a>
           </div>
         </MotionInView>
       </div>

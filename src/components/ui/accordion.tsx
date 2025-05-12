@@ -54,7 +54,7 @@ const AccordionItem = React.forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       value={value}
-      className={cn("bg-[#181819] px-6 my-4 transition-all hover:bg-[#181819]/90  rounded-3xl ", className)}
+      className={cn("bg-[#F9F9F9]  px-6 my-4 transition-all hover:bg-[#F9F9F9]/90  rounded-3xl ", className)}
       {...props}
     >
       {enhancedChildren}
@@ -83,9 +83,9 @@ const AccordionTrigger = React.forwardRef<
 
       <div className="w-fit">
         {isOpen ? (
-          <Minus color="#fff" variant="Linear" size={24} />
+          <Minus color="#000" variant="Linear" size={24} />
         ) : (
-          <Add color="#fff" variant="Linear" size={24} />
+          <Add color="#000" variant="Linear" size={24} />
         )}
       </div>
     </AccordionPrimitive.Trigger>
@@ -120,7 +120,7 @@ const AccordionContent = React.forwardRef<
             className={cn("text-sm", className)}
             style={{ overflow: "hidden" }}
           >
-            <div className="pb-4 pt-0">{children}</div>
+            <div className="pb-4 pt-0 text-black/80" >{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

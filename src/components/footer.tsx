@@ -10,16 +10,16 @@ const Footer = () => {
   const currentPathName = usePathname();
 
   return (
-    <footer className="bg-none mt-30 text-gray-300 py-12">
+    <footer className="bg-none mt-30  py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Grid for logo and links */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Brand */}
           <div className="flex flex-col items-start">
             <div className="flex items-center mb-4">
-              <span className="text-2xl font-bold text-white">
+              <span className="text-2xl font-extrabold text-black">
                 async
-                <span className="text-[#5E27F6] text-4xl leading-0">.</span>
+                <span className="text-[#5E27F6] text-4xl font-black leading-0">.</span>
                 awake
               </span>
             </div>
@@ -27,17 +27,17 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="font-medium text-white">Links</h3>
+            <h3 className="font-semibold text-black">Links</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="/" className="text-white/60 hover:text-white">
+                <Link href="/" className="text-black/60 hover:text-black font-medium">
                   Home
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-white/60 hover:text-white"
+                  className="text-black/60 hover:text-black font-medium"
                 >
                   Contact
                 </Link>
@@ -47,25 +47,25 @@ const Footer = () => {
 
           {/* Follow Us */}
           <div>
-            <h3 className="font-medium text-white">Services</h3>
+            <h3 className="font-semibold text-black">Services</h3>
             <ul className="mt-4 space-y-2">
               {currentPathName === "/" && (
                 <li onClick={scrollToSection}>
-                  <a className="cursor-pointer  text-white/60 hover:text-white">
-                    Our Solutions
+                  <a className="cursor-pointer  text-black/60 hover:text-black font-medium">
+                    Solutions
                   </a>
                 </li>
               )}
               <li>
                 <Link
-                  href="/contact"
-                  className="text-white/60 hover:text-white"
+                  href="/apply"
+                  className="text-black/60 hover:text-black font-medium"
                 >
-                  Book Consultation
+                  Apply Now
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-white/60 hover:text-white">
+                <Link href="/faq" className="text-black/60 hover:text-black font-medium">
                   FAQ's
                 </Link>
               </li>
@@ -74,12 +74,12 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h3 className="font-medium text-white">Legals</h3>
+            <h3 className="font-semibold text-black">Legals</h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
                   href="/legals/privacy-policy"
-                  className="text-white/60 hover:text-white"
+                  className="text-black/60 hover:text-black font-medium"
                 >
                   Privacy Policy
                 </Link>
@@ -87,7 +87,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/legals/terms-of-services"
-                  className="text-white/60 hover:text-white"
+                  className="text-black/60 hover:text-black font-medium"
                 >
                   Terms of Service
                 </Link>
@@ -97,30 +97,30 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <hr className="my-8 border-white/10" />
+        <hr className="my-8 border-black/10" />
 
         {/* Social Icons and Copyright */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div className="flex space-x-6 justify-center md:flex-row flex-col md:space-y-0 space-y-2 sm:justify-start">
-            <a
+            {/* <a
               href="https://www.instagram.com/asyncawakecom/"
               target="_blank"
-              className="text-white flex items-center gap-x-2 hover:underline"
+              className="text-black flex items-center gap-x-2 hover:underline"
             >
-              <Instagram variant="Linear" size={18} color="#fff" />
+              <Instagram variant="Linear" size={18} color="#000" />
               <p>Instagram</p>
-            </a>
+            </a> */}
 
             <a
               href="mailto:contact@asyncawake.com"
-              className="text-white flex items-center gap-x-2 hover:underline"
+              className="text-black font-medium  flex items-center gap-x-2 hover:underline"
             >
-              <Sms variant="Linear" size={18} color="#fff" />
+              <Sms variant="Linear" size={18} color="#000" />
               <p>contact@asyncawake.com</p>
             </a>
           </div>
 
-          <p className="mt-8 text-center text-sm text-white/60 sm:mt-0">
+          <p className="mt-8 text-center font-medium text-sm text-black/60 sm:mt-0">
             © {new Date().getFullYear()} AsyncAwake. All rights reserved.
           </p>
         </div>

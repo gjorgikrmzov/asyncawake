@@ -74,6 +74,9 @@ const Contact = () => {
     }
   };
 
+  // 0d0d0e black
+  // F9F9F9 gray
+
   return (
     <div className=" relative">
       <head>
@@ -101,7 +104,7 @@ const Contact = () => {
                 ease: [0.6, 0.01, 0.05, 0.95],
                 duration: 0.6,
               }}
-              className="text-6xl md:text-8xl leading-16 md:leading-22 text-[#fff] font-regular ml-1"
+              className="text-6xl md:text-8xl leading-16 md:leading-22 text-[#0d0d0e] font-semibold ml-1"
             >
               Let&apos;s work <br />
               together!
@@ -117,7 +120,7 @@ const Contact = () => {
                 duration: 0.6,
                 delay: 0.1,
               }}
-              className="mt-10 text-white/90"
+              className="mt-10 font-medium text-[#0d0d0e]/90"
             >
               Let us help you become even greater at what you do.{" "}
               <br className="hidden md:flex" />
@@ -128,11 +131,11 @@ const Contact = () => {
 
           <form className="z-[30] mt-12 w-full flex flex-col gap-y-8">
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-white/20 font-medium text-sm rounded-full group-focus-within:bg-[#fff] group-focus-within:text-black transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>01</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
-                <label htmlFor="fullName" className="font-regular text-md">
+                <label htmlFor="fullName" className="font-medium text-md">
                   What's your name?
                   <span className="text-red-600">*</span>
                 </label>
@@ -143,18 +146,18 @@ const Contact = () => {
                   name="name"
                   type="text"
                   autoComplete="off"
-                  className="outline-none border-b-2 placeholder:text-white/80 border-[#fff]/60 focus-within:border-white transition-all py-4 text-[#fff] px-3 font-regular"
+                  className="outline-none border-b-2 placeholder:text-[#0d0d0e]/80 border-[#0d0d0e]/60 focus-within:border-[#0d0d0e] transition-all py-4 text-[#0d0d0e] px-3 font-medium"
                   placeholder="Full Name"
                 />
               </div>
             </div>
 
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-white/20 font-medium text-sm rounded-full group-focus-within:bg-[#fff] group-focus-within:text-black transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>02</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
-                <label htmlFor="fullName" className="font-regular text-md">
+                <label htmlFor="fullName" className="font-medium text-md">
                   What&apos;s your email address?
                   <span className=" text-red-600">*</span>
                 </label>
@@ -165,18 +168,18 @@ const Contact = () => {
                   name="email"
                   type="text"
                   autoComplete="off"
-                  className="outline-none  border-b-2 caret-white placeholder:text-white/80 border-[#fff]/60 focus-within:border-white transition-all py-4 text-[#fff] px-3 font-regular"
+                  className="outline-none  border-b-2 caret-black/80 placeholder:text-[#0d0d0e]/80 border-[#0d0d0e]/60 focus-within:border-[#0d0d0e] transition-all py-4 text-[#0d0d0e] px-3 font-medium"
                   placeholder="Email Address"
                 />
               </div>
             </div>
 
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-white/20 font-medium text-sm rounded-full group-focus-within:bg-[#fff] group-focus-within:text-black transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>03</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
-                <label htmlFor="fullName" className="font-regular text-md">
+                <label htmlFor="fullName" className="font-medium text-md">
                   Let's connect<span className=" text-red-600">*</span>
                 </label>
                 <textarea
@@ -186,7 +189,7 @@ const Contact = () => {
                   name="message"
                   id=""
                   rows={3}
-                  className="resize-none outline-none w-full  border-b-2 caret-white placeholder:text-white/80 border-[#fff]/60 focus-within:border-white transition-all py-4 text-[#fff] px-3 font-regular"
+                  className="resize-none outline-none w-full  border-b-2 caret-black/80 placeholder:text-[#0d0d0e]/80 border-[#0d0d0e]/60 focus-within:border-[#0d0d0e] transition-all py-4 text-[#0d0d0e] px-3 font-medium"
                   placeholder="Provide Detailed Information.."
                 ></textarea>
               </div>
@@ -196,12 +199,12 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="md:self-start self-center bg-[#fff] items-center gap-x-2 w-full md:w-fit  rounded-full flex px-10 py-4 font-regular text-[#000] justify-center"
+                className="md:self-start self-center bg-[#0d0d0e] items-center gap-x-2 w-full md:w-fit  rounded-full flex px-10 py-4 font-medium text-[#fff] justify-center"
               >
                 Sending{" "}
                 <svg
                   aria-hidden="true"
-                  className="w-4 h-4 text-[#000]/15 animate-spin  fill-[#5e27f6]"
+                  className="w-4 h-4 text-[#fff]/15 animate-spin  fill-[#5e27f6]"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -222,15 +225,15 @@ const Contact = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="md:self-start self-center bg-[#fff] items-center gap-x-2 w-full md:w-fit  rounded-full flex px-10 py-4 font-regular text-[#000] justify-center"
+                    className="md:self-start self-center bg-[#000] items-center gap-x-2 w-full md:w-fit  rounded-full flex px-10 py-4 font-medium text-[#fff] justify-center"
                   >
-                    <TickCircle variant="Bold" size={22} color="#000" />
-                    <p className="text-black font-medium">Message Sent!</p>
+                    <TickCircle variant="Bold" size={22} color="#fff" />
+                    <p className="text-white font-medium">Message Sent!</p>
                   </motion.div>
                 ) : (
                   <motion.div
                     onClick={handleSubmit}
-                    className="md:self-start cursor-pointer self-center bg-[#fff] w-full md:w-fit  rounded-full flex px-10 py-4 font-regular text-[#000] justify-center"
+                    className="md:self-start cursor-pointer self-center bg-[#000] w-full md:w-fit  rounded-full flex px-10 py-4 font-medium text-[#fff] justify-center"
                     whileHover={{ scale: 1.125 }}
                     whileTap={{ scale: 1.1 }}
                   >
@@ -263,29 +266,29 @@ const Contact = () => {
           >
             <Send2
               variant="Bold"
-              color="#fff"
+              color="#0d0d0e"
               className="flex self-center place-self-center justify-self-center justify-center items-center"
               size={120}
             />
           </motion.div>
 
           <div className="mt-20">
-            <h2 className="text-white/80 text-xl">Call Us</h2>
-            <p className="text-white mt-4">+389 77 758 066</p>
-            <p className="text-white mt-0.5">+389 79 239 880</p>
+            <h2 className="text-[#0d0d0e]/80 text-xl font-medium">Call Us</h2>
+            <p className="text-[#0d0d0e] mt-4 font-medium">+389 77 758 066</p>
+            <p className="text-[#0d0d0e] mt-0.5 font-medium">+389 79 239 880</p>
           </div>
 
           <div className="mt-20">
-            <h2 className="text-white/80 text-xl">Email</h2>
+            <h2 className="text-[#0d0d0e]/80 text-xl font-medium">Email</h2>
             <a
               href="mailto:contact@asyncawake.com"
-              className="hover:underline block text-white mt-4"
+              className="hover:underline font-medium block text-[#0d0d0e] mt-4"
             >
               contact@asyncawake.com
             </a>
             <a
               href="mailto:agency@asyncawake.com"
-              className="hover:underline block text-white mt-0.5"
+              className="hover:underline block  font-medium text-[#0d0d0e] mt-0.5"
             >
               agency@asyncawake.com
             </a>

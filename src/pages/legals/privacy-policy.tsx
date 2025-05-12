@@ -4,23 +4,22 @@ import Header from "@/components/header";
 const PrivacyPage = () => {
   return (
     <>
-      <div className="h-full flex flex-col justify-between bg-dark text-white">
+      <div className="h-full flex flex-col justify-between bg-white text-gray-900">
 
-      <head>
-        <title>Privacy Policy - AsyncAwake</title>
-        <meta
-          name="description"
-          content="AsyncAwake: AI agency crafting smart assistant-bot and automation to boost efficiency, engagement, and growth for businesses."
-        />
-      </head>
-
+        <head>
+          <title>Privacy Policy - AsyncAwake</title>
+          <meta
+            name="description"
+            content="AsyncAwake: AI agency crafting smart assistant-bot and automation to boost efficiency, engagement, and growth for businesses."
+          />
+        </head>
 
         {/* Header */}
         <Header />
 
         {/* Main Content */}
         <main className="max-w-4xl mt-10 px-6 md:px-10">
-          <h1 className="text-4xl font-regular mb-8">
+          <h1 className="text-4xl font-semibold mb-8">
             Privacy Policy
           </h1>
           <p className="mb-4">
@@ -33,7 +32,7 @@ const PrivacyPage = () => {
             services.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2">
             1. Information We Collect
           </h2>
           <p className="mb-4">
@@ -45,7 +44,7 @@ const PrivacyPage = () => {
             browser type or pages visited for analytics.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2">
             2. How We Use Your Information
           </h2>
           <p className="mb-4">
@@ -55,7 +54,7 @@ const PrivacyPage = () => {
             <br />- Comply with legal obligations.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2">
             3. How We Share Your Information
           </h2>
           <p className="mb-4">
@@ -67,20 +66,20 @@ const PrivacyPage = () => {
             <br />- <strong>Legal Authorities</strong>: If required by law.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">4. Data Security</h2>
+          <h2 className="text-xl font-semibold mt-6 mb-2">4. Data Security</h2>
           <p className="mb-4">
             We use industry-standard measures to protect your data, but no
             system is 100% secure. Data is retained only as needed.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">5. Your Rights</h2>
+          <h2 className="text-xl font-semibold mt-6 mb-2">5. Your Rights</h2>
           <p className="mb-4">
             You may have rights to access, correct, or delete your data,
             depending on your location. Contact us at contact@asyncawake.com to
             exercise these rights.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2">
             6. Third-Party Links
           </h2>
           <p className="mb-4">
@@ -88,14 +87,14 @@ const PrivacyPage = () => {
             their privacy practices.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">
+          <h2 className="text-xl font-semibold mt-6 mb-2">
             7. Changes to This Policy
           </h2>
           <p className="mb-4">
             We may update this policy. Check here for the latest version.
           </p>
 
-          <h2 className="text-xl font-medium mt-6 mb-2">8. Contact Us</h2>
+          <h2 className="text-xl font-semibold mt-6 mb-2">8. Contact Us</h2>
           <p className="mb-4">
             For questions, reach out at contact@asyncawake.com.
           </p>
@@ -103,9 +102,9 @@ const PrivacyPage = () => {
 
         <div></div>
 
-        {/* Footer */}
       </div>
-        <Footer />
+      {/* Footer outside to keep it fixed at the bottom */}
+      <Footer />
     </>
   );
 };

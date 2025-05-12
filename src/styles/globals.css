@@ -3,41 +3,41 @@
 
 :root {
   --primary: #5e27f6;
-  --dark: #070707;
+  --dark: #0d0d0e;
+
+  --background: #ffffff;
+  --foreground: #0d0d0e;
 }
 
 * {
   font-family: "onest";
+  letter-spacing: -0.05em;
 }
 
 @font-face {
   font-family: onest;
-  src: url("../../assets//fonts/Onest-VariableFont_wght.ttf");
-}
-
-@theme inline {
-  --color-background: var(--dark);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #070707;
-    --foreground: #ededed;
-  }
+  src: url("../../assets/fonts/Onest-VariableFont_wght.ttf");
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* REMOVE these to avoid theme switching */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Removed to prevent theme override */
+  }
 }
 
 @media (prefers-color-scheme: light) {
   html {
-    color-scheme: dark;
+    /* Removed to prevent theme override */
   }
 }
 
+/* Animation (unchanged) */
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
@@ -55,14 +55,13 @@ body {
   }
 }
 .animate-scroll-left {
-  animation: scroll-left 12s linear infinite; /* Faster for mobile */
+  animation: scroll-left 12s linear infinite;
   display: inline-flex;
 }
 .animate-scroll-right {
-  animation: scroll-right 12s linear infinite; /* Faster for mobile */
+  animation: scroll-right 12s linear infinite;
   display: inline-flex;
 }
-/* Desktop: slower animation */
 @media (min-width: 400px) {
   .animate-scroll-left {
     animation: scroll-left 20s linear infinite;

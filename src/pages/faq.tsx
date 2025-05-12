@@ -18,18 +18,19 @@ const Faq = () => {
 
       <div className="flex px-6 md:px-0  flex-col items-center">
         <div className="flex justify-center items-center flex-col pt-30">
-          <div className="bg-[#fff]/10 border-2 flex gap-x-2 items-center border-white/20 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-white">FAQ</p>
+        <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+        <p className="text-[#5e27f6] font-medium">FAQ</p>
             <MessageQuestion
               variant="Bulk"
-              className="relative bottom-[1px]"
               size={18}
-              color="#fff"
+              className="relative  bottom-[1px]"
+              color="#5E27F6"
             />
           </div>
-          <h1 className=" mt-6 text-white text-center text-6xl lg:text-7xl font-medium">
-            Frequently Asked <br />
-            Questions
+          
+          <h1 className="mt-6 text-[#0d0d0e] text-center text-[42px] leading-12 lg:leading-20 lg:text-7xl font-semibold">
+            Frequently <br />
+            Asked Questions
           </h1>
         </div>
         <FaqList />
