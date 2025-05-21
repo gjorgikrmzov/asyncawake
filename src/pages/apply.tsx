@@ -13,7 +13,7 @@ const Apply = () => {
   const [success, setsuccess] = useState(false);
 
   const services = [
-    "AI Assistant Bot",
+    "AI Chat Agent",
     "AI Automation",
     "Voice Agent",
     "Other",
@@ -90,15 +90,15 @@ const Apply = () => {
   };
 
   // 0d0d0e black
-  // F9F9F9 gray
+  // F8F8F8 gray
 
   return (
     <div className="relative">
       <head>
-        <title>Apply Now - AsyncAwake</title>
+        <title>Apply: AsyncAwake</title>
         <meta
           name="description"
-          content="AsyncAwake: AI agency crafting smart assistant-bot and automation to boost efficiency, engagement, and growth for businesses."
+          content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
       </head>
 
@@ -110,7 +110,7 @@ const Apply = () => {
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ease: [0.6, 0.01, 0.05, 0.95], duration: 0.6 }}
-              className="text-5xl md:text-7xl text-[#0d0d0e] font-semibold ml-1"
+              className="text-5xl md:text-7xl from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent font-bold ml-1"
             >
               Apply Now
             </motion.h4>
@@ -135,7 +135,7 @@ const Apply = () => {
           <form className="z-[30] w-full flex flex-col gap-y-8">
             {/* Company Name */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>01</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -157,7 +157,7 @@ const Apply = () => {
 
             {/* Business Email */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>02</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -180,7 +180,7 @@ const Apply = () => {
 
             {/* Website URL */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>03</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -203,7 +203,7 @@ const Apply = () => {
 
             {/* Service Selection */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>04</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -224,7 +224,7 @@ const Apply = () => {
                         <ArrowDown2 size={16} color="#000" variant="Linear" />
                       </span>
                     </Listbox.Button>
-                    <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#F9F9F9] text-[#0d0d0e] py-1 ring-1 ring-black/5 focus:outline-none">
+                    <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#F8F8F8] text-[#0d0d0e] py-1 ring-1 ring-black/5 focus:outline-none">
                       {services.map((service) => (
                         <Listbox.Option
                           key={service}
@@ -248,7 +248,7 @@ const Apply = () => {
 
             {/* Preferred Time */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>05</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -269,7 +269,7 @@ const Apply = () => {
 
             {/* Message */}
             <div className="flex items-start gap-x-4 group focus-within:[&_.number-badge]:bg-[#0d0d0e]  focus-within:[&_.number-badge]:text-white">
-              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F9F9F9] font-medium text-sm rounded-full transition-colors">
+              <div className="number-badge flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full transition-colors">
                 <p>06</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">

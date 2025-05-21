@@ -77,7 +77,7 @@ const Header = () => {
     <div
       className={`z-[999] sticky  top-0 transition-all duration-300 ${
         scrolled
-          ? "bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-50"
+          ? "bg-clip-padding md:top-5 md:mx-5 md:rounded-4xl  backdrop-filter backdrop-blur-md bg-opacity-50"
           : ""
       }`}
     >
@@ -112,19 +112,23 @@ const Header = () => {
     text-[17px] 
     text-[#0d0d0e]/90 
     relative
-    after:content-[''] 
+    after:content-['*'] 
     after:absolute 
-    after:bottom-[-4px] 
+    after:text-center
+    after:text-3xl
+    after:font-medium
+    after:bottom-[2px]
+    after:h-0.5
+
     after:left-1/2 
     after:-translate-x-1/2 
-    after:h-[2px] 
-    after:bg-[#5e27f6]
+    after:text-[#5e27f6]
     after:transition-all 
     after:duration-200
     ${
       currentPathName === "/"
-        ? "after:w-[20px]"
-        : "after:w-0 hover:after:w-[20px] after:bg-[#5e27f6]/40"
+        ? "after:text-[$5e27f6]"
+        : "after:scale-0 hover:after:scale-100  after:duration-200 after:transition-all"
     }
   `}
           >
@@ -137,22 +141,29 @@ const Header = () => {
     hover:text-[#0d0d0e] 
     font-medium
     cursor-pointer 
+    flex 
+    gap-x-1 
+    items-center 
     text-[17px] 
     text-[#0d0d0e]/90 
     relative
-    after:content-[''] 
+    after:content-['*'] 
     after:absolute 
-    after:bottom-[-4px] 
+    after:text-center
+    after:text-3xl
+    after:font-medium
+    after:bottom-[2px]
+    after:h-0.5
+
     after:left-1/2 
     after:-translate-x-1/2 
-    after:h-[2px] 
-    after:bg-[#5e27f6]
+    after:text-[#5e27f6]
     after:transition-all 
     after:duration-200
     ${
       currentPathName === "/faq/"
-        ? "after:w-[20px]"
-        : "after:w-0 hover:after:w-[20px] after:bg-[#5e27f6]/40"
+        ? "after:text-[$5e27f6]"
+        : "after:scale-0 hover:after:scale-100  after:duration-200 after:transition-all"
     }
   `}
           >
@@ -165,22 +176,29 @@ const Header = () => {
     hover:text-[#0d0d0e] 
     font-medium
     cursor-pointer 
+    flex 
+    gap-x-1 
+    items-center 
     text-[17px] 
     text-[#0d0d0e]/90 
     relative
-    after:content-[''] 
+    after:content-['*'] 
     after:absolute 
-    after:bottom-[-4px] 
+    after:text-center
+    after:text-3xl
+    after:font-medium
+    after:bottom-[2px]
+    after:h-0.5
+
     after:left-1/2 
     after:-translate-x-1/2 
-    after:h-[2px] 
-    after:bg-[#5e27f6]
+    after:text-[#5e27f6]
     after:transition-all 
     after:duration-200
     ${
       currentPathName === "/contact/"
-        ? "after:w-[20px]"
-        : "after:w-0 hover:after:w-[20px] after:bg-[#5e27f6]/40"
+        ? "after:text-[$5e27f6]"
+        : "after:scale-0 hover:after:scale-100  after:duration-200 after:transition-all"
     }
   `}
           >
@@ -206,7 +224,9 @@ const Header = () => {
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 1.1 }}
           >
-            <p className={`text-lg font-medium text-black delay-300 transition-colors`}>
+            <p
+              className={`text-lg font-medium text-black delay-300 transition-colors`}
+            >
               {menuToggled ? "Close" : "Menu"}
             </p>
           </motion.div>
@@ -223,19 +243,19 @@ const Header = () => {
                 }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 0.7 }}
-                className="z-[500] origin-top bg-[#fff] fixed w-screen h-screen"
+                transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 0.5 }}
+                className="z-[500] origin-top overflow-x-hidden bg-[#fff] fixed w-screen h-screen"
               ></motion.div>
             )}
 
-            <div className="z-[999] mt-30 flex flex-col gap-y-4">
+            <div className="z-[999] overflow-x-hidden mt-30 flex flex-col gap-y-5">
               {Urls.map((url, index) => (
                 <>
-                  <div className=" ml-1 px-6 overflow-hidden  flex flex-col">
+                  <div className="px-6  overflow-hidden  flex flex-col">
                     {menuToggled && (
                       <Link
                         href={url?.url}
-                        className="overflow-hidden duration-200  transition-all cursor-pointer capitalize font-normal text-[#0d0d0e]/90 text-[22px]"
+                        className="overflow-hidden duration-200 transition-all cursor-pointer capitalize font-normal text-[#0d0d0e]/90 text-4xl"
                       >
                         <motion.div
                           variants={navLinks}
@@ -247,20 +267,22 @@ const Header = () => {
                               delay: 0,
                             },
                           }}
-                          className="flex flex-row font-medium uppercase items-center gap-x-4"
+                          className="flex items-center gap-x-3 flex-row font-medium uppercase"
                           transition={{
-                            delay: index * 0.2,
+                            delay: index * 0.15,
                             duration: 0.5,
                             ease: [0.6, 0.01, -0.05, 0.95],
                           }}
                         >
-                          <div
-                            className={`w-1.5 h-7 ${
+                          <sub
+                            className={`leading-0 text-5xl font-medium ${
                               currentPathName === url.url
-                                ? "bg-[#5e27f6]"
-                                : "bg-[#0d0d0e]/10"
-                            } rounded-2xl flex justify-center items-center`}
-                          ></div>
+                                ? "text-[#5e27f6]"
+                                : "text-[#000]/70"
+                            }`}
+                          >
+                            *
+                          </sub>
                           {url?.name}
                         </motion.div>
                       </Link>

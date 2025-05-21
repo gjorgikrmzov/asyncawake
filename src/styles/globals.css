@@ -14,14 +14,21 @@
   letter-spacing: -0.05em;
 }
 
+::selection {
+  color: #f9f9f9;
+  background: #0d0d0e;
+}
+
 @font-face {
   font-family: onest;
   src: url("../../assets/fonts/Onest-VariableFont_wght.ttf");
 }
 
+
 body {
   background: var(--background);
   color: var(--foreground);
+  cursor: none;
 }
 
 /* REMOVE these to avoid theme switching */

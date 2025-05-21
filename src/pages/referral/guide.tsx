@@ -46,7 +46,7 @@ export default function Home() {
               Async Awake offers two primary service categories designed to transform business operations:
             </p>
             <div className="mt-4">
-              <h3 className="text-xl font-bold text-white mt-4 mb-4">Assistant Bot</h3>
+              <h3 className="text-xl font-bold text-white mt-4 mb-4">Chat Agent</h3>
               <ul className="list-disc list-inside text-[rgba(255,255,255,0.8)]">
                 <li>AI-powered virtual assistants customized to handle tasks such as scheduling, customer support, data entry, and more.</li>
                 <li>Proactive task management to anticipate and address client needs.</li>
@@ -89,7 +89,7 @@ export default function Home() {
               <li><span className="font-bold text-white">Scalability</span>: Solutions adapt to growing demands, supporting long-term success.</li>
             </ul>
             <p className="text-[rgba(255,255,255,0.8)] mt-4">
-              <span className="font-bold text-white">Example</span>: A mid-sized e-commerce company used our Assistant Bot to manage customer inquiries and our Automation service to streamline order processing. The result? A 50% reduction in response time and a 30% increase in order processing efficiency.
+              <span className="font-bold text-white">Example</span>: A mid-sized e-commerce company used our Chat Agent to manage customer inquiries and our Automation service to streamline order processing. The result? A 50% reduction in response time and a 30% increase in order processing efficiency.
             </p>
           </section>
 
@@ -108,7 +108,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="mt-4">
-              <h3 className="text-xl font-bold text-white mt-4 mb-4">Assistant Bot</h3>
+              <h3 className="text-xl font-bold text-white mt-4 mb-4">Chat Agent</h3>
               <ul className="list-disc list-inside text-[rgba(255,255,255,0.8)]">
                 <li><span className="font-bold text-white">Setup Fee</span>: €1,500 for initial configuration and integration.</li>
                 <li><span className="font-bold text-white">Complexity Fee</span>: Variable cost based on the bot’s complexity and customization requirements.</li>
@@ -120,7 +120,7 @@ export default function Home() {
               <span className="font-bold text-white">Note</span>: Exact costs are determined after a consultation to assess client needs. Contact us for a personalized quote.
             </p>
             <p className="text-[rgba(255,255,255,0.8)] mt-4">
-              <span className="font-bold text-white">Referral Benefits</span>: Earn a 20% commission for each successful referral. For example, referring a client to an Assistant Bot package with a €2,000 annual value earns you €400.
+              <span className="font-bold text-white">Referral Benefits</span>: Earn a 20% commission for each successful referral. For example, referring a client to an Chat Agent package with a €2,000 annual value earns you €400.
             </p>
           </section>
 

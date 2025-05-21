@@ -75,15 +75,15 @@ const Contact = () => {
   };
 
   // 0d0d0e black
-  // F9F9F9 gray
+  // F8F8F8 gray
 
   return (
     <div className=" relative">
       <head>
-        <title>Contact - AsyncAwake</title>
+        <title>Contact: AsyncAwake</title>
         <meta
           name="description"
-          content="AsyncAwake: AI agency crafting smart assistant-bot and automation to boost efficiency, engagement, and growth for businesses."
+          content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
       </head>
 
@@ -104,7 +104,7 @@ const Contact = () => {
                 ease: [0.6, 0.01, 0.05, 0.95],
                 duration: 0.6,
               }}
-              className="text-6xl md:text-8xl leading-16 md:leading-22 text-[#0d0d0e] font-semibold ml-1"
+              className="text-6xl md:text-8xl pb-3 leading-16 md:leading-22 from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent font-bold ml-1"
             >
               Let&apos;s work <br />
               together!
@@ -120,7 +120,7 @@ const Contact = () => {
                 duration: 0.6,
                 delay: 0.1,
               }}
-              className="mt-10 font-medium text-[#0d0d0e]/90"
+              className="mt-7 font-medium text-[#0d0d0e]/90"
             >
               Let us help you become even greater at what you do.{" "}
               <br className="hidden md:flex" />
@@ -131,7 +131,7 @@ const Contact = () => {
 
           <form className="z-[30] mt-12 w-full flex flex-col gap-y-8">
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>01</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -153,7 +153,7 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>02</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">
@@ -175,7 +175,7 @@ const Contact = () => {
             </div>
 
             <div className="flex items-start gap-x-4 group">
-              <div className="flex justify-center items-center w-11 h-7 bg-[#f9f9f9] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
+              <div className="flex justify-center items-center w-11 h-7 bg-[#F8F8F8] font-medium text-sm rounded-full group-focus-within:bg-[#0d0d0e] group-focus-within:text-[#fff] transition-all">
                 <p>03</p>
               </div>
               <div className="flex flex-col w-full gap-y-3">

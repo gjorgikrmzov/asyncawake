@@ -54,7 +54,7 @@ const AccordionItem = React.forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       value={value}
-      className={cn("bg-[#F9F9F9]  px-6 my-4 transition-all hover:bg-[#F9F9F9]/90  rounded-3xl ", className)}
+      className={cn("bg-[#F8F8F8]  px-6 my-4 transition-all hover:bg-[#F8F8F8]/90  rounded-3xl ", className)}
       {...props}
     >
       {enhancedChildren}

@@ -3,40 +3,26 @@ import Squares from "@/backgrounds/Squares/Squares";
 import FaqList from "@/components/faq-list";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { motion, useAnimation, useInView } from "framer-motion";
 import {
-  AnimatePresence,
-  motion,
-  useAnimation,
-  useInView,
-} from "framer-motion";
-import {
-  Add,
-  ArrowDown,
-  ArrowRight,
-  Award,
   Briefcase,
   ColorSwatch,
   Convertshape,
-  Data2,
   DollarCircle,
   ExportSquare,
   Flash,
-  I24Support,
-  KeySquare,
   LampCharge,
   MessageQuestion,
   Messages1,
   NoteAdd,
   RecordCircle,
   Setting2,
-  TrendUp,
+  Star1,
   VoiceSquare,
 } from "iconsax-react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 
-// Memoized MotionInView component
 const MotionInView = memo(({ children, variants, custom, ...props }: any) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
@@ -61,56 +47,63 @@ const MotionInView = memo(({ children, variants, custom, ...props }: any) => {
 });
 MotionInView.displayName = "MotionInView";
 
-// Memoized FeatureCard component for "Why Choose AI" section
-const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => (
-  <div className="md:flex-col flex-row w-full lg:w-fit gap-x-7 md:gap-x-0 flex group  justify-start items-center md:items-start">
-    <div className="flex w-fit  items-start">
+const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => {
+  const isEven = index % 2 == 0;
+
+  return (
+    <div
+      className={`flex-row w-full lg:w-1/2 ${
+        isEven ? " self-start" : "self-end"
+      } gap-x-7 lg:gap-x-10 relative flex group justify-start items-center`}
+    >
+      <div className="items-start">
+        <MotionInView
+          variants={{
+            initial: { scale: 0, y: 20, opacity: 0 },
+            animate: {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            },
+          }}
+        >
+          <Icon
+            className="w-20 h-20 lg:w-40 lg:h-40"
+            color="#5E27F6"
+            variant="Bulk"
+          />
+        </MotionInView>
+      </div>
+
       <MotionInView
-        className="p-5 rounded-4xl  bg-[#F9F9F9] "
         variants={{
-          initial: { scale: 0, opacity: 0 },
+          initial: { y: 80, opacity: 0 },
           animate: {
             opacity: 1,
-            scale: 1,
+            y: 0,
             transition: {
               ease: [0.6, 0.01, 0.05, 0.95],
-              duration: 0.5,
             },
           },
         }}
+        className="flex-col"
       >
-        <Icon size={54} color="#5E27F6" variant="Bulk" />
+        <h1 className=" font-medium tracking-tighter flex items-center gap-x-1 text-3xl lg:text-5xl text-[#0d0d0e]">
+          {title}
+        </h1>
+
+        <p className="text-md lg:text-xl font-medium  text-[#0d0d0e]/70 mt-3 ">
+          {description}
+        </p>
       </MotionInView>
     </div>
+  );
+});
 
-    <MotionInView
-      variants={{
-        initial: { y: 80, opacity: 0 },
-        animate: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            ease: [0.6, 0.01, 0.05, 0.95],
-          },
-        },
-      }}
-      className="mt-0 md:mt-8 flex-col"
-    >
-      <h1 className=" font-medium tracking-tighter text-2xl md:text-[28px] text-[#0d0d0e]">
-        {title}
-      </h1>
-
-      <p className="text-md md:text-lg font-medium  text-[#0d0d0e]/70 mt-2 md:mt-4">
-        {description}
-      </p>
-    </MotionInView>
-  </div>
-));
 FeatureCard.displayName = "FeatureCard";
 
-// Memoized SolutionCard component for "AI-Powered Efficiency" section
-const SolutionCard = memo(
-  ({ index, icon: Icon, title, description, onViewDetails, solution }: any) => (
+const SolutionCard = memo(({ index, icon: Icon, title, description }: any) => (
+  <>
     <MotionInView
       className="w-full"
       variants={{
@@ -126,63 +119,79 @@ const SolutionCard = memo(
         },
       }}
     >
-      <div
-        onClick={() => onViewDetails(solution)}
-        className="p-10 pb-14 group relative  cursor-pointer overflow-hidden bg-[#F9F9F9] rounded-4xl h-full"
-      >
-        <div className="transition-all group-hover:rotate-45 duration-200 absolute rotate-12 -right-18 z-0 -bottom-18 ">
-          <Icon size={220} color="#5E27F6" variant="Bulk" />
-        </div>
+      <div className="md:py-18 px-4 p-8 group  relative flex-col md:flex-row justify-between items-start md:items-center flex overflow-hidden h-full">
+        <div className="flex  justify-start items-center gap-x-8 h-full">
+          <h1
+            className="hidden border border-transparent md:flex text-8xl 
+          font-bold from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r bg-clip-text text-transparent"
+          >
+            0{index + 1}
+          </h1>
 
-        <div className="flex flex-col justify-start items-start h-full">
           <div className="flex-grow">
             <div className="flex items-center gap-x-4">
-              <h2 className="text-2xl text-[#0d0d0e] font-semibold gap-x-2">
-                <span className="text-[#5E27F6]">0{index + 1}</span> {title}
+              <h2 className="text-4xl md:text-5xl  gap-x-2 flex items-start leading-14  from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent font-medium ">
+                <div className="flex group-hover:font-bold transition-all duration-200 items-center  gap-x-3">
+                  <h1
+                    className="text-4xl flex md:hidden
+          font-bold from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r bg-clip-text text-transparent"
+                  >
+                    0{index + 1}
+                  </h1>
+                  {title}{" "}
+                </div>
               </h2>
-
-              <ExportSquare
-                className="group-hover:scale-100 scale-0 transition-all duration-200"
-                variant="TwoTone"
-                size={22}
-                color="#0d0d0e"
-              />
             </div>
-            <p className="mt-2 text-[#0d0d0e]/80 font-medium">{description}</p>
+            <p className="mt-4 md:w-2/3 text-md md:text-xl text-[#0d0d0e]/90 font-medium">
+              {description}
+            </p>
           </div>
+        </div>
 
-          <motion.div
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 1.1 }}
-            className="w-fit mt-14 gap-x-2 items-center flex"
-            onClick={() => onViewDetails(solution)}
-          >
-            <p className="text-[#000] font-medium md:text-md">Details</p>
-            <ArrowRight variant="TwoTone" size={20} color="#000" />
-          </motion.div>
+        <div className="self-end mt-10 md:mt-0 md:self-center">
+          <Link href="/apply">
+            <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
+              <div className="bg-[#0d0d0e] px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                <p className="text-[#fff] font-medium text-sm md:text-md">
+                  Apply For Consultation
+                </p>
+              </div>
+            </motion.div>
+          </Link>
+
+          <Link href="/faq" className="mt-6 md:mt-0 self-end md:self-center">
+            <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
+              <div className="bg-[#F8F8F8] flex justify-center gap-x-2 items-center mt-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                <p className="text-[#000] font-medium text-sm md:text-md">
+                  Have a question?
+                </p>
+                <ExportSquare variant="TwoTone" size={15} color="#000" />
+              </div>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </MotionInView>
-  )
-);
+
+    <MotionInView
+      variants={{
+        initial: { width: 0 },
+        animate: {
+          width: "100%",
+          transition: {
+            ease: [0.4, 0, 0.1, 1],
+            duration: 0.7,
+          },
+        },
+      }}
+      className="origin-left w-full border-t-[2px] border-[#f0f0f0]"
+    ></MotionInView>
+  </>
+));
 SolutionCard.displayName = "SolutionCard";
 
 export default function Home() {
-  const router = useRouter();
   const smoothEase = [0.6, 0.01, 0.05, 0.95];
-  const [selectedSolution, setSelectedSolution] = useState<any>(null);
-
-  // Ensure scroll is enabled after closing the overlay
-  useEffect(() => {
-    // Force scroll restoration when selectedSolution changes to null
-    if (!selectedSolution) {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-      // Force a reflow to ensure scroll is restored
-      window.scrollTo(0, window.scrollY);
-    }
-  }, [selectedSolution]);
-
   // Memoized variants for animations
   const fadeInUpVariants = useMemo(
     () => ({
@@ -209,41 +218,34 @@ export default function Home() {
     []
   );
 
-  // Memoized scroll velocity texts
-  const scrollTexts = useMemo(
-    () => [
-      "Automation ‧ Assistant-Bots ‧ Customer Support ‧ Boost Efficiency",
-      "Assistant-Bots ‧ Automation ‧ Customer Support ‧ Boost Efficiency",
-    ],
-    []
-  );
-
   // Memoized feature data for "Why Choose AI"
   const features = useMemo(
     () => [
       {
         icon: Flash,
-        title: "Boost Efficiency",
+        title: "Save Time",
         numberLabel: "01",
-        description: "Automate tasks so your team focuses on high-value work",
+        description:
+          "Automate tasks so your team can focus on what matters most",
       },
       {
         icon: DollarCircle,
-        title: "Cost Savings",
+        title: "Lower Costs",
         numberLabel: "02",
-        description: "Reduce operational expenses with scalable solutions.",
+        description: "Reduce expenses by replacing manual work with automation",
       },
       {
         icon: ColorSwatch,
-        title: "Personalized",
+        title: "Get Personal",
         numberLabel: "03",
-        description: "Tailor conversations to your business and customer needs",
+        description:
+          "Deliver tailored conversations that match your brand and customers",
       },
       {
-        icon: I24Support,
-        title: "Customer Inquiries",
+        icon: Messages1,
+        title: "Instant Replies",
         numberLabel: "04",
-        description: "Handle inquiries anytime with intelligent assistant-bot",
+        description: "Answer questions 24/7 with a chat agent that never rests",
       },
     ],
     []
@@ -254,77 +256,25 @@ export default function Home() {
     () => [
       {
         icon: Messages1,
-        title: "AI Assistant Bot",
+        title: "AI Chat Agent",
         description:
-          "Engage customers 24/7 with conversational AI that improves support and boosts sales",
-        features: [
-          "24/7 customer engagement",
-          "Natural language processing",
-          "Customizable responses",
-        ],
-        benefits: [
-          "Improved customer satisfaction",
-          "Reduced response times",
-          "Increased sales conversions",
-        ],
-        useCases: ["E-commerce support", "Booking systems", "FAQ automation"],
+          "Engage customers 24/7 with conversational chat agent that improves support and boosts sales",
       },
       {
         icon: Setting2,
         title: "AI Automation",
         description:
           "Automate the boring stuff, cut costs, and speed up operations—without burning out your team",
-        features: [
-          "Task automation",
-          "Workflow integration",
-          "Real-time analytics",
-        ],
-        benefits: [
-          "Lower operational costs",
-          "Enhanced productivity",
-          "Error reduction",
-        ],
-        useCases: [
-          "Data entry automation",
-          "Inventory management",
-          "Report generation",
-        ],
       },
       {
         icon: VoiceSquare,
         title: "Voice Agent",
         description:
-          "24/7 support with an intelligent voice assistant that improves engagement and efficiency",
-        features: [
-          "Voice recognition",
-          "Multi-language support",
-          "Interactive voice response",
-        ],
-        benefits: [
-          "Enhanced customer experience",
-          "Scalable support",
-          "Reduced call center costs",
-        ],
-        useCases: [
-          "Call center automation",
-          "Appointment scheduling",
-          "Customer feedback collection",
-        ],
+          "24/7 support with an intelligent voice agent that improves engagement and efficiency",
       },
     ],
     []
   );
-
-  // Memoized FAQ items
-
-  // Memoized event handlers
-  const handleApplyNow = useCallback(() => {
-    router.push("/apply");
-  }, [router]);
-
-  const handleViewDetails = useCallback((solution: any) => {
-    setSelectedSolution(solution);
-  }, []);
 
   const heroH1 = {
     initial: { y: "100%" },
@@ -333,7 +283,7 @@ export default function Home() {
 
   const InfiniteScrollText = () => {
     const words = [
-      "AI Assistant-Bot",
+      "AI Chat Agent",
       "Customer Inquiries",
       "Automation",
       "Boost Efficiency",
@@ -343,21 +293,25 @@ export default function Home() {
       "Boost Efficiency",
       "Automation",
       "Customer Inquiries",
-      "AI Assistant-Bot",
+      "AI Chat Agent",
     ];
 
     return (
       <div className={`w-full overflow-hidden pb-2`}>
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-1">
           {/* Top row: scrolls left */}
           <div className="flex animate-scroll-left whitespace-nowrap">
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-4xl flex flex-row items-center lg:text-7xl font-semibold tracking-tighter   text-[#0d0d0e]"
+                className=" text-5xl flex flex-row items-center lg:text-7xl font-bold tracking-tighter text-[#0d0d0e]"
               >
-                {words[(i + 1) % words.length]}
-                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-8xl text-[#5E27F6]">*</sub>
+                <h1 className="from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+                  {words[(i + 1) % words.length]}
+                </h1>
+                <sub className="mx-3 md:mx-5 text-7xl leading-0  md:text-[80px] text-[#5E27F6]">
+                  *
+                </sub>
               </span>
             ))}
           </div>
@@ -366,10 +320,14 @@ export default function Home() {
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-4xl flex flex-row items-center lg:text-7xl font-semibold tracking-tighter text-[#0d0d0e]"
+                className=" text-5xl flex flex-row items-center lg:text-7xl font-bold tracking-tighter text-[#0d0d0e]"
               >
-                {wordsOpposite[(i + 1) % wordsOpposite.length]}
-                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-8xl text-[#5E27F6]">*</sub>
+                <h1 className="from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+                  {wordsOpposite[(i + 1) % wordsOpposite.length]}
+                </h1>
+                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-[80px] text-[#5E27F6]">
+                  *
+                </sub>
               </span>
             ))}
           </div>
@@ -378,15 +336,13 @@ export default function Home() {
     );
   };
 
-  // 0d0d0e black
-  // F9F9F9 gray
   return (
     <div className="h-full">
       <head>
-        <title>Home - AsyncAwake</title>
+        <title>Home: AsyncAwake</title>
         <meta
           name="description"
-          content="AsyncAwake: AI agency crafting smart assistant-bot and automation to boost efficiency, engagement, and growth for businesses."
+          content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
       </head>
 
@@ -397,7 +353,7 @@ export default function Home() {
           speed={0}
           squareSize={60}
           direction="down"
-          borderColor={"#0d0d0e" + "2A"}
+          borderColor={"#0d0d0e" + "1A"}
           hoverFillColor="transparent"
         />
       </div>
@@ -405,10 +361,10 @@ export default function Home() {
       <div className="z-10 h-[100svh] md:h-[90vh] relative justify-between flex flex-col">
         <div className=""></div>
 
-        <div className="justify-center flex-col items-center flex">
-          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-[#5e27f6] font-medium">AI-Powered Services</p>
-            <Data2 variant="Bulk" size={18} color="#5E27F6" />
+        <div className="justify-center w-fit self-center relative flex-col items-center flex">
+          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+            <p className="text-[#5E27F6] font-medium">Skip the Busywork</p>
+            <Flash variant="Bulk" size={18} color="#5E27F6" />
           </div>
 
           <div className="flex-col z-1 flex items-center justify-center">
@@ -416,7 +372,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 tracking-tighter text-center text-[#0d0d0e] leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
+                className="overflow-hidden mt-6 z-0 tracking-tighter text-center text-[#0d0d0e] leading-14 lg:leading-20 text-5xl lg:text-[80px] font-bold"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -432,7 +388,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 leading-13.5 text-center text-[#0d0d0e]  text-5xl font-semibold tracking-tighter"
+                className="overflow-hidden mt-6 z-0 leading-12.5 text-center text-[#0d0d0e]  text-5xl font-bold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -448,7 +404,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-13.5 text-center text-5xl font-semibold tracking-tighter"
+                className="overflow-hidden z-0 leading-12.5 text-center text-5xl font-bold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -464,7 +420,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-16 text-center text-5xl font-semibold tracking-tighter"
+                className="overflow-hidden z-0 leading-14 text-center text-5xl font-bold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -480,7 +436,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-14 text-center text-5xl font-semibold tracking-tighter"
+                className="overflow-hidden z-0 leading-14 text-center text-5xl font-bold tracking-tighter"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -497,7 +453,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className=" z-0 text-center tracking-tighter text-[#0d0d0e] pb-6  leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
+                  className=" z-0 text-center tracking-tighter text-[#0d0d0e] pb-6  leading-14 lg:leading-26 text-5xl lg:text-[80px] font-bold"
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -513,7 +469,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className="z-0 text-center text-[#0d0d0e] tracking-tighter pb-6 leading-14 lg:leading-20 text-5xl lg:text-7xl font-semibold"
+                  className="z-0 text-center text-[#0d0d0e] tracking-tighter pb-6 leading-14 lg:leading-20 text-5xl lg:text-[80px] font-bold"
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -527,7 +483,7 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="mx-6 md:px-0 text-center font-medium text-lg md:text-lg lg:text-xl text-[#0d0d0e]/80 ">
+          <p className="mx-6 md:px-0 text-center font-medium  text-xl md:text-xl lg:text-2xl text-[#0d0d0e]/80 ">
             We build smart assistants that answer questions, automate tasks,{" "}
             <br className="hidden sm:flex" />
             and free up your team’s time.
@@ -555,15 +511,27 @@ export default function Home() {
 
       <InfiniteScrollText />
 
-      <div className="h-full py-30">
-        <MotionInView variants={fadeInUpVariants}>
-          <h1 className="relative text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4 text-[#0d0d0e] text-[42px] leading-12 lg:leading-18 lg:text-7xl font-semibold tracking-tighter">
-            <span className="gap-x-3 md:gap-x-4 flex">
+      <div className="h-full pt-50 pb-30">
+        <MotionInView
+          className="flex flex-col justify-center items-center"
+          variants={fadeInUpVariants}
+        >
+          <div className="backdrop-blur-2xl flex gap-x-2 items-center  bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+            <p className="text-[#5E27F6] font-medium">Benefits</p>
+            <Star1
+              variant="Bulk"
+              size={18}
+              className="relative  bottom-[1px]"
+              color="#5E27F6"
+            />
+          </div>
+          <h1 className="relative mt-6 text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4  text-5xl lg:text-7xl font-bold tracking-tighter  from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+            <span className="gap-x-3 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent md:gap-x-4 flex">
               The
-              <span className="relative inline-block">
+              <span className="relative from-[#000]/90 pr-0.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent inline-block">
                 Benefits
                 <svg
-                  className="absolute -bottom-1.5 md:-bottom-3.5 left-1/2 -translate-x-1/2 w-full"
+                  className="absolute stroke-[2.5px] md:stroke-[2px]  -bottom-2.5 md:-bottom-3.5 left-1/2 -translate-x-1/2 w-full"
                   viewBox="0 0 100 10"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -571,7 +539,6 @@ export default function Home() {
                   <path
                     d="M5 8 Q50 2, 95 8"
                     stroke="#5E27F6"
-                    strokeWidth="2"
                     strokeLinecap="round"
                     fill="transparent"
                   />
@@ -579,7 +546,7 @@ export default function Home() {
               </span>
             </span>
 
-            <span className="flex relative flex-row items-center mt-2 md:mt-3 gap-x-3 md:gap-x-4">
+            <span className="flex from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent relative flex-row items-center mt-2 md:mt-3 gap-x-3 md:gap-x-4">
               Of Automation
               <MotionInView
                 variants={{
@@ -606,7 +573,7 @@ export default function Home() {
 
         <MotionInView
           variants={{
-            initial: { opacity: 0, y: 100 },
+            initial: { opacity: 0, y: 40 },
             animate: {
               opacity: 1,
               y: 0,
@@ -614,27 +581,27 @@ export default function Home() {
             },
           }}
         >
-          <p className="text-center font-medium mx-6 text-lg md:text-lg mt-10 text-[#0d0d0e]/80">
-            Virtual Assistants handle the work for you while you & your team
+          <p className="text-3xl mx-8  md:text-4xl  mt-10 text-center font-medium from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent ">
+            Virtual Assistants handle the work for you while{" "}
             <br className="hidden md:block" />
-            focus on what's important.
+            you & your team focus on what's important.
           </p>
         </MotionInView>
 
         <div className="w-full flex justify-center items-center"></div>
 
-        <div className="flex flex-col lg:flex-row gap-y-20 lg:gap-y-0 items-center px-6 lg:px-20 gap-x-24 justify-evenly mt-40">
+        <div className="flex flex-col lg:gap-y-10 gap-y-16 px-6 items-center xl:px-60 mt-40">
           {features.map((feature, index) => (
-            <FeatureCard key={index} index={index} {...feature} />
+            <FeatureCard index={index} {...feature} />
           ))}
         </div>
       </div>
 
       <div
-        id="aiChatBot"
+        id="solutions"
         className="h-full flex flex-col justify-center py-30 px-6 md:px-10"
       >
-        <div className="flex items-start lg:items-center flex-col lg:flex-row justify-evenly">
+        <div className="flex items-start  flex-col md:flex-row justify-evenly md:items-center ">
           <MotionInView
             variants={{
               initial: { opacity: 0, y: 80 },
@@ -646,8 +613,8 @@ export default function Home() {
             }}
           >
             <div className="flex flex-col items-start">
-              <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-                <p className="text-[#5e27f6] font-medium">Solutions</p>
+              <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+                <p className="text-[#5E27F6] font-medium">Solutions</p>
                 <LampCharge
                   variant="Bulk"
                   className="relative bottom-[1px]"
@@ -656,8 +623,9 @@ export default function Home() {
                 />
               </div>
 
-              <div className="text-[42px] text-black font-semibold leading-12 lg:leading-18 lg:text-7xl mt-6">
-                Our Services, <br /> Your Growth
+              <div className=" from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent pb-1.5 font-bold  text-5xl lg:text-7xl mt-6">
+                Cut Costs, <br />
+                Less Busywork
               </div>
             </div>
           </MotionInView>
@@ -665,250 +633,34 @@ export default function Home() {
           <div>
             <MotionInView
               variants={{
-                initial: { opacity: 0 },
+                initial: { opacity: 0, y: 40 },
                 animate: {
                   opacity: 1,
-                  transition: { duration: 0.5, ease: smoothEase, delay: 0.15 },
+                  y: 0,
+                  transition: { duration: 0.5, ease: smoothEase, delay: 0.1 },
                 },
               }}
             >
-              <p className="text-lg mt-10 font-medium lg:mt-0 text-[#0d0d0e]/90">
-                From answering customer questions to automating
+              <p className="text-3xl  md:text-4xl  mt-10 md:mt-0 font-medium from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent ">
+                from answering customer questions to{" "}
                 <br className="hidden lg:flex" />
-                internal tasks—our assistants help you do more with less.
+                automating internal tasks our <br className="hidden lg:flex" />
+                solutions help you do more with less.
               </p>
-            </MotionInView>
-
-            <MotionInView
-              variants={{
-                initial: { opacity: 0 },
-                animate: {
-                  opacity: 1,
-                  transition: { duration: 0.5, ease: smoothEase, delay: 0.2 },
-                },
-              }}
-            >
-              <div className="flex items-center mt-6 gap-x-4">
-                <Magnet padding={50} magnetStrength={40}>
-                  <motion.div
-                    onClick={handleApplyNow}
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 1.1 }}
-                  >
-                    <div className="bg-none px-4  bg-[#0d0d0e]  transition-all cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                      <p className="text-[#F9F9F9] text-sm md:text-md">
-                        Apply Now
-                      </p>
-                    </div>
-                  </motion.div>
-                </Magnet>
-              </div>
             </MotionInView>
           </div>
         </div>
 
-        <div className="mt-20 lg:gap-x-8 gap-y-8 h-full self-center flex lg:w-[90%] w-full flex-col lg:flex-row justify-center">
+        <div className="mt-20 md:px-10 gap-y-4 h-full self-center flex  w-full flex-col  justify-center">
           {solutions.map((solution, index) => (
             <SolutionCard
               key={index}
               index={index}
               {...solution}
               solution={solution}
-              onViewDetails={handleViewDetails}
             />
           ))}
         </div>
-
-        <AnimatePresence>
-          {selectedSolution && (
-            <motion.div className="flex w-screen fixed left-0 px-6 z-[999] lg:px-0 top-0 h-[100dvh] justify-center py-6 lg:py-16 items-center pointer-events-auto">
-              <motion.div
-                key="solution-modal"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{
-                  opacity: 0.1,
-                  transition: {
-                    delay: 0,
-                  },
-                }}
-                transition={{
-                  delay: 0.1,
-                }}
-                onClick={() => setSelectedSolution(null)}
-                className="w-full top-0 left-0 absolute h-full bg-white/5 backdrop-blur-lg pointer-events-auto"
-              ></motion.div>
-
-              <motion.div
-                key="modal-content"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{
-                  scale: 0.9,
-                  opacity: 0,
-                  transition: {
-                    type: "spring",
-                    duration: 0.4,
-                  },
-                }}
-                transition={{
-                  damping: 15,
-                  stiffness: 300,
-                  type: "spring",
-                }}
-                className="h-[90%] z-10 flex flex-col justify-start lg:justify-between w-full lg:w-2/3 rounded-4xl bg-[#F9F9F9] p-8 md:p-10 overflow-y-auto pointer-events-auto"
-              >
-                <div className="flex items-center justify-between">
-                  <h1 className="text-[#0d0d0e] font-medium flex text-2xl items-center gap-x-2">
-                    {selectedSolution?.title}
-                  </h1>
-
-                  <Add
-                    onClick={() => setSelectedSolution(null)}
-                    size={32}
-                    color="#0d0d0e"
-                    variant="Linear"
-                    className="rotate-45 cursor-pointer"
-                  />
-                </div>
-
-                <div className="flex h-fit lg:flex-row mt-10 gap-x-12 flex-col justify-between items-start">
-                  <div className="flex lg:w-fit w-full flex-col">
-                    <div className="w-full">
-                      <motion.h1
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          delay: 0.1,
-                        }}
-                        className="text-[#0d0d0e]/80 font-medium text-md items-center gap-x-2"
-                      >
-                        Description
-                      </motion.h1>
-
-                      <motion.p
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          delay: 0.2,
-                        }}
-                        className="mt-2 font-medium text-[#0d0d0e] text-lg"
-                      >
-                        {selectedSolution?.description}
-                      </motion.p>
-                    </div>
-
-                    <div className="flex w-fit mt-10 lg:mt-20 flex-col lg:gap-x-8 lg:flex-row">
-                      {selectedSolution?.features && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.3,
-                          }}
-                          className="mb-6 lg:mb-0"
-                        >
-                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-[#0d0d0e]">
-                            <KeySquare
-                              variant="Bulk"
-                              size={22}
-                              className="bottom-1"
-                              color="#5E27F6"
-                            />
-                            <h3>Key Features</h3>
-                          </div>
-                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-[#0d0d0e]/80">
-                            {selectedSolution.features.map(
-                              (feature: string, idx: number) => (
-                                <li className="text-md font-medium" key={idx}>
-                                  {feature}
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </motion.div>
-                      )}
-
-                      {selectedSolution?.benefits && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.4,
-                          }}
-                        >
-                          <div className="text-xl flex flex-row items-center gap-x-2 font-medium text-[#0d0d0e]">
-                            <Award variant="Bulk" size={22} color="#5E27F6" />
-                            <h3>Benefits</h3>
-                          </div>
-                          <ul className="list-disc gap-y-1 flex flex-col pl-5 mt-2 text-[#0d0d0e]/80">
-                            {selectedSolution.benefits.map(
-                              (benefit: string, idx: number) => (
-                                <li className="text-md font-medium" key={idx}>
-                                  {benefit}
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="h-full self-center w-full lg:w-2/3">
-                    <div className="hidden lg:flex flex-col">
-                      <motion.h1
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          delay: 0.45,
-                        }}
-                        className="flex flex-row items-center gap-x-2 text-[#0d0d0e] text-2xl font-medium"
-                      >
-                        <span>Interested? Apply Now</span>
-                        <ArrowDown variant="Bold" size={30} color="#5E27F6" />
-                      </motion.h1>
-                      <motion.p
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          delay: 0.5,
-                        }}
-                        className="mt-3 font-medium text-[#0d0d0e]/90"
-                      >
-                        Apply for a free consultation today and see how we can
-                        help you save time & money with AI.
-                      </motion.p>
-                    </div>
-
-                    <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{
-                        delay: 0.55,
-                      }}
-                      className="flex mt-6 w-full flex-col lg:flex-row items-center gap-x-2"
-                    >
-                      <Link className="w-full lg:w-fit" href="/apply">
-                        <motion.div
-                          className="w-full lg:w-fit"
-                          whileHover={{ scale: 1.101 }}
-                          whileTap={{ scale: 1.1 }}
-                        >
-                          <div className="text-[#FFF] justify-center bg-black w-full lg:w-fit flex items-center gap-x-3 px-3 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                            Apply Now
-                          </div>
-                        </motion.div>
-                      </Link>
-                    </motion.div>
-                  </div>
-                </div>
-
-                <div></div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       <div className="h-full py-30 flex flex-col justify-center items-center px-6 md:px-10">
@@ -916,8 +668,8 @@ export default function Home() {
           className="flex items-center flex-col"
           variants={fadeInUpVariants}
         >
-          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-[#5e27f6] font-medium">FAQ</p>
+          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10  px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+            <p className="text-[#5E27F6] font-medium">FAQ</p>
             <MessageQuestion
               variant="Bulk"
               size={18}
@@ -925,7 +677,7 @@ export default function Home() {
               color="#5E27F6"
             />
           </div>
-          <h1 className="mt-6 text-[#0d0d0e] text-center text-[42px] leading-12 lg:leading-20 lg:text-7xl font-semibold">
+          <h1 className="mt-6  text-center px-1  font-bold  text-5xl lg:text-7xl from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
             Frequently <br />
             Asked Questions
           </h1>
@@ -940,8 +692,8 @@ export default function Home() {
             className="flex items-center flex-col"
             variants={fadeInUpVariants}
           >
-            <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5e27f6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-              <p className="text-[#5e27f6] font-medium">Our Approach</p>
+            <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10  px-3 md:px-4 py-1 md:py-1.5 rounded-full">
+              <p className="text-[#5E27F6] font-medium">Our Approach</p>
               <Convertshape
                 variant="Bulk"
                 className="relative bottom-[1px]"
@@ -949,7 +701,7 @@ export default function Home() {
                 color="#5E27F6"
               />
             </div>
-            <h1 className="mt-6 text-[#0d0d0e] text-center text-[42px] leading-12 lg:leading-18 lg:text-7xl font-semibold">
+            <h1 className="mt-6 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent text-center font-bold  text-5xl lg:text-7xl">
               Implementation <br />
               Process
             </h1>
@@ -957,18 +709,18 @@ export default function Home() {
 
           <MotionInView
             variants={{
-              initial: { opacity: 0, y: 100 },
+              initial: { opacity: 0, y: 40 },
               animate: {
                 opacity: 1,
                 y: 0,
-                transition: { duration: 0.5, ease: smoothEase, delay: 0.2 },
+                transition: { duration: 0.5, ease: smoothEase, delay: 0.1 },
               },
             }}
           >
-            <p className="text-center mx-6 font-medium text-lg md:text-lg mt-10 text-[#0d0d0e]/80">
-              Book a free consult, we build the solution, then launch it.{" "}
+            <p className="text-center mx-6 font-medium text-3xl md:text-4xl mt-10 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent">
+              Book a free consult, we build the solution,{" "}
               <br className="hidden md:flex" />
-              No fluff—just done-for-you.
+              then launch it. No fluff—just done-for-you.
             </p>
           </MotionInView>
         </div>
@@ -996,12 +748,19 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9] "
+                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8] "
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -right-2"
+                    />
+
                     <span>01</span>
                   </MotionInView>
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                    <div className="text-[#0d0d0e] font-medium text-2xl">
                       Consultation
                     </div>
                   </div>
@@ -1021,7 +780,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="h-24 w-[3px] rounded-2xl origin-top my-3 relative left-10 bg-[#5e27f6]"
+                  className="h-24 w-[3px] rounded-2xl origin-top my-3 relative left-12 from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
                 ></MotionInView>
               </div>
             </div>
@@ -1039,13 +798,20 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
+                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8]"
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -right-2"
+                    />
+
                     <span>02</span>
                   </MotionInView>
 
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                    <div className="text-[#0d0d0e] font-medium text-2xl   ">
                       Develop
                     </div>
                   </div>
@@ -1065,7 +831,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="h-24 w-[3px] my-3 rounded-2xl relative origin-top left-10 bg-[#5e27f6]"
+                  className="h-24 w-[3px] my-3 rounded-2xl relative origin-top left-12 from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
                 ></MotionInView>
               </div>
             </div>
@@ -1083,13 +849,20 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
+                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8]"
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -right-2"
+                    />
+
                     <span>03</span>
                   </MotionInView>
 
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-xl mt-2">
+                    <div className="text-[#0d0d0e] font-medium text-2xl   ">
                       Deploy
                     </div>
                   </div>
@@ -1100,7 +873,7 @@ export default function Home() {
         </MotionInView>
 
         <div>
-          <div className="mt-20 hidden md:flex items-center">
+          <div className="mt-30 hidden md:flex items-center">
             <div className="flex flex-col items-center">
               <div className="flex relative items-center">
                 <div className="flex relative flex-col items-center justify-center">
@@ -1114,8 +887,14 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
+                    className="w-24 h-24 relative text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -bottom-2"
+                    />
                     <span>01</span>
                   </MotionInView>
                   <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
@@ -1137,7 +916,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="w-24 origin-left mx-2 h-[3px] rounded-2xl bg-[#5e27f6]"
+                  className="w-24 origin-left mx-2 h-[3px] rounded-2xl from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
                 ></MotionInView>
               </div>
             </div>
@@ -1159,8 +938,15 @@ export default function Home() {
                         },
                       },
                     }}
-                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
+                    className="w-24 h-24 relative text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -bottom-2"
+                    />
+
                     <span>02</span>
                   </MotionInView>
                   <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
@@ -1181,7 +967,7 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="w-24 mx-2 h-[3px] rounded-2xl origin-left bg-[#5e27f6]"
+                  className="w-24 mx-2 h-[3px] rounded-2xl origin-left from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
                 ></MotionInView>
               </div>
             </div>
@@ -1203,8 +989,15 @@ export default function Home() {
                         },
                       },
                     }}
-                    className="w-20 h-20 text-[#0d0d0e] text-2xl justify-center items-center flex rounded-3xl bg-[#F9F9F9]"
+                    className="w-24 relative h-24 text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
                   >
+                    <RecordCircle
+                      variant="Bulk"
+                      size={18}
+                      color="#5E27F6"
+                      className="absolute self-center -bottom-2"
+                    />
+
                     <span>03</span>
                   </MotionInView>
                   <div className="absolute -bottom-14 font-medium text-[#0d0d0e] text-xl">
@@ -1219,13 +1012,13 @@ export default function Home() {
 
       <div className="h-full flex flex-col justify-center items-center pt-30">
         <MotionInView className="w-min" variants={scaleRotateVariants}>
-          <div className="w-34 h-34 rounded-full bg-[#F9F9F9] backdrop-blur-2xl flex justify-center items-center">
+          <div className="w-34 h-34 rounded-full bg-[#F8F8F8] backdrop-blur-2xl flex justify-center items-center">
             <Briefcase variant="Bulk" size={46} color={"#0d0d0e"} />
           </div>
         </MotionInView>
 
         <MotionInView variants={fadeInUpVariants}>
-          <h1 className="mt-8 mb-10 text-4xl md:text-6xl text-[#0d0d0e] text-center font-semibold">
+          <h1 className="mt-8 mb-10 text-4xl from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent  lg:text-7xl font-bold text-center">
             Apply Now, <br />
             let’s collaborate!
           </h1>

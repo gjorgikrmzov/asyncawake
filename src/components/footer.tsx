@@ -1,13 +1,15 @@
-import { Instagram, Sms } from "iconsax-react";
+import { Sms } from "iconsax-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-const Footer = () => {
-  const scrollToSection = () => {
-    const section = document.getElementById("aiChatBot");
-    section?.scrollIntoView({ behavior: "smooth" });
-  };
+import { useEffect } from "react";
 
-  const currentPathName = usePathname();
+const Footer = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === "#aiChatBot") {
+      const section = document.getElementById("aiChatBot");
+      section?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <footer className="bg-none mt-30  py-12">
@@ -17,9 +19,11 @@ const Footer = () => {
           {/* Logo and Brand */}
           <div className="flex flex-col items-start">
             <div className="flex items-center mb-4">
-              <span className="text-2xl font-extrabold text-black">
+              <span className="text-3xl font-extrabold text-black">
                 async
-                <span className="text-[#5E27F6] text-4xl font-black leading-0">.</span>
+                <span className="text-[#5E27F6] text-5xl font-black leading-0">
+                  .
+                </span>
                 awake
               </span>
             </div>
@@ -27,17 +31,29 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="font-semibold text-black">Links</h3>
+            <h3 className="font-medium text-[17px] text-black">Links</h3>
             <ul className="mt-4 space-y-2">
               <li>
-                <Link href="/" className="text-black/60 hover:text-black font-medium">
+                <Link
+                  href="/"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
+                >
                   Home
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
+                >
+                  FAQ
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-black/60 hover:text-black font-medium"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
                 >
                   Contact
                 </Link>
@@ -47,26 +63,23 @@ const Footer = () => {
 
           {/* Follow Us */}
           <div>
-            <h3 className="font-semibold text-black">Services</h3>
+            <h3 className="font-medium text-black text-[17px]">Services</h3>
             <ul className="mt-4 space-y-2">
-              {currentPathName === "/" && (
-                <li onClick={scrollToSection}>
-                  <a className="cursor-pointer  text-black/60 hover:text-black font-medium">
-                    Solutions
-                  </a>
-                </li>
-              )}
               <li>
                 <Link
-                  href="/apply"
-                  className="text-black/60 hover:text-black font-medium"
+                  href="/#solutions"
+                  scroll={false}
+                  className="cursor-pointer  text-black/60 text-[17px] hover:text-black font-medium"
                 >
-                  Apply Now
+                  Solutions
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-black/60 hover:text-black font-medium">
-                  FAQ's
+                <Link
+                  href="/apply"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
+                >
+                  Apply Now
                 </Link>
               </li>
             </ul>
@@ -74,12 +87,12 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h3 className="font-semibold text-black">Legals</h3>
+            <h3 className="font-medium text-black text-[17px]">Legals</h3>
             <ul className="mt-4 space-y-2">
               <li>
                 <Link
                   href="/legals/privacy-policy"
-                  className="text-black/60 hover:text-black font-medium"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
                 >
                   Privacy Policy
                 </Link>
@@ -87,7 +100,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/legals/terms-of-services"
-                  className="text-black/60 hover:text-black font-medium"
+                  className="text-black/60 text-[17px] hover:text-black font-medium"
                 >
                   Terms of Service
                 </Link>
