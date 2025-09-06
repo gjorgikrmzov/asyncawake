@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { AnimatePresence, motion } from "framer-motion";
-import { Add, ArrowDown2, Minus } from "iconsax-react";
+import { Add, AddCircle, ArrowDown2, Minus, MinusCirlce } from "iconsax-react";
 import { cn } from "@/lib/utils";
 
 type AccordionContextType = {
@@ -54,7 +54,10 @@ const AccordionItem = React.forwardRef<
     <AccordionPrimitive.Item
       ref={ref}
       value={value}
-      className={cn("bg-[#F8F8F8]  px-6 my-4 transition-all hover:bg-[#F8F8F8]/90  rounded-3xl ", className)}
+      className={cn(
+        "bg-[#f8f8f8]  px-6 my-2 transition-all hover:bg-[#f8f8f8]/90  rounded-3xl ",
+        className
+      )}
       {...props}
     >
       {enhancedChildren}
@@ -81,11 +84,19 @@ const AccordionTrigger = React.forwardRef<
     >
       {children}
 
-      <div className="w-fit">
+      <div className=" hidden  w-10 h-10 ml-2 rounded-full md:flex justify-center items-center bg-[#000]">
         {isOpen ? (
-          <Minus color="#000" variant="Linear" size={24} />
+          <Minus variant="Linear" color="#EFEFEF" size={24} />
         ) : (
-          <Add color="#000" variant="Linear" size={24} />
+          <Add variant="Linear" color="#EFEFEF" size={24} />
+        )}
+      </div>
+
+      <div className="flex md:hidden ml-4">
+        {isOpen ? (
+          <MinusCirlce variant="Bold" color="#000" size={30} />
+        ) : (
+          <AddCircle variant="Bold" color="#000" size={30} />
         )}
       </div>
     </AccordionPrimitive.Trigger>
@@ -120,7 +131,7 @@ const AccordionContent = React.forwardRef<
             className={cn("text-sm", className)}
             style={{ overflow: "hidden" }}
           >
-            <div className="pb-4 pt-0 text-black/80" >{children}</div>
+            <div className="pb-4 pt-0 text-black/70">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

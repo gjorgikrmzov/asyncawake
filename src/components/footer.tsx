@@ -12,7 +12,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-none mt-30  py-12">
+    <footer className="bg-none py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Grid for logo and links */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -125,16 +125,24 @@ const Footer = () => {
             </a> */}
 
             <a
-              href="mailto:contact@asyncawake.com"
+              href="mailto:ilija@asyncawake.agency"
               className="text-black font-medium  flex items-center gap-x-2 hover:underline"
             >
               <Sms variant="Linear" size={18} color="#000" />
-              <p>contact@asyncawake.com</p>
+              <p>ilija@asyncawake.agency</p>
+            </a>
+              <p className="text-[#292929]/80">/</p>
+            <a
+              href="mailto:ilija@asyncawake.agency"
+              className="text-black font-medium  flex items-center gap-x-2 hover:underline"
+            >
+              <Sms variant="Linear" size={18} color="#000" />
+              <p>krmzov@asyncawake.agency</p>
             </a>
           </div>
 
           <p className="mt-8 text-center font-medium text-sm text-black/60 sm:mt-0">
-            © {new Date().getFullYear()} AsyncAwake. All rights reserved.
+            © {new Date().getFullYear()} Async Awake. All rights reserved.
           </p>
         </div>
       </div>

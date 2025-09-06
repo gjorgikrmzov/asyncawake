@@ -4,13 +4,13 @@ import Header from "@/components/header";
 const PrivacyPage = () => {
   return (
     <>
-      <div className="h-full flex flex-col justify-between bg-white text-gray-900">
+      <div className="h-full flex flex-col justify-between  text-gray-900">
 
         <head>
-          <title>Privacy Policy: AsyncAwake</title>
+          <title>Privacy Policy: Async Awake</title>
           <meta
             name="description"
-            content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
+            content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
           />
         </head>
 
@@ -26,7 +26,7 @@ const PrivacyPage = () => {
             <strong>Last Updated: April 12, 2025</strong>
           </p>
           <p className="mb-4">
-            At AsyncAwake, we are committed to protecting your privacy. This
+            At Async Awake, we are committed to protecting your privacy. This
             Privacy Policy explains how we collect, use, store, and share
             information when you visit asyncawake.com or use our Chat Agent
             services.

@@ -3,15 +3,18 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { memo } from "react";
 import useLenis from "@/components/useLenis";
-import CustomCursor from "@/components/cursor";
+import { usePathname } from "next/navigation";
 
 const App = memo(({ Component, pageProps }: AppProps) => {
+  const pathname = usePathname();
+
+  console.log(pathname)
   useLenis();
   return (
     <>
-      <CustomCursor />
       <Component {...pageProps} />
-      <AssistantBot />
+
+      {pathname !== "/apply/" && <AssistantBot />}
     </>
   );
 });

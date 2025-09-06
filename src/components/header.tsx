@@ -1,16 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Add,
-  HambergerMenu,
   Home2,
   MessageQuestion,
-  RecordCircle,
-  Sms,
+  Sms
 } from "iconsax-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ShinyButton } from "./magicui/shiny-button";
 
 const Header = () => {
   const [menuToggled, setMenuToggled] = useState(false);
@@ -44,7 +42,7 @@ const Header = () => {
         <Home2
           variant={currentPathName === "/" ? "Bold" : "TwoTone"}
           size={24}
-          color="#0d0d0e"
+          color="#1a1a1a"
         />
       ),
       url: "/",
@@ -55,7 +53,7 @@ const Header = () => {
         <MessageQuestion
           variant={currentPathName === "/faq/" ? "Bold" : "TwoTone"}
           size={24}
-          color="#0d0d0e"
+          color="#1a1a1a"
         />
       ),
       url: "/faq/",
@@ -66,7 +64,7 @@ const Header = () => {
         <Sms
           variant={currentPathName === "/contact/" ? "Bold" : "TwoTone"}
           size={24}
-          color="#0d0d0e"
+          color="#1a1a1a"
         />
       ),
       url: "/contact/",
@@ -77,7 +75,7 @@ const Header = () => {
     <div
       className={`z-[999] sticky  top-0 transition-all duration-300 ${
         scrolled
-          ? "bg-clip-padding md:top-5 md:mx-5 md:rounded-4xl  backdrop-filter backdrop-blur-md bg-opacity-50"
+          ? "bg-clip-padding md:top-5 md:mx-5 md:rounded-4xl  backdrop-filter backdrop-blur-sm bg-opacity-50"
           : ""
       }`}
     >
@@ -85,15 +83,13 @@ const Header = () => {
         className={` py-6 w-full px-6 md:px-10 justify-between items-center flex  
         `}
       >
-        <div className="w-1/5 z-[999] justify-start flex">
-          <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
+        <div className="w-1/5  z-[999] justify-start flex">
+          <motion.div className="" whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
             <Link href="/">
               <Image
                 alt="asyncawake"
-                className={`w-8 md:w-9 h-8 md:h-9 delay-300 transition-all cursor-pointer ${
-                  menuToggled && ""
-                }`}
-                src={require("../../assets/images/logo.png")}
+                className={`w-8 md:w-9 h-8 md:h-9 delay-300 filter invert transition-all cursor-pointer `}
+                src={require("../../assets/images/White.png")}
               />
             </Link>
           </motion.div>
@@ -103,14 +99,14 @@ const Header = () => {
           <Link
             href="/"
             className={`
-    hover:text-[#0d0d0e] 
+    hover:text-[#1a1a1a] 
     font-medium
     cursor-pointer 
     flex 
     gap-x-1 
     items-center 
     text-[17px] 
-    text-[#0d0d0e]/90 
+    text-[#1a1a1a]/90 
     relative
     after:content-['*'] 
     after:absolute 
@@ -138,14 +134,14 @@ const Header = () => {
           <Link
             href="/faq"
             className={`
-    hover:text-[#0d0d0e] 
+    hover:text-[#1a1a1a] 
     font-medium
     cursor-pointer 
     flex 
     gap-x-1 
     items-center 
     text-[17px] 
-    text-[#0d0d0e]/90 
+    text-[#1a1a1a]/90 
     relative
     after:content-['*'] 
     after:absolute 
@@ -173,14 +169,14 @@ const Header = () => {
           <Link
             href="/contact"
             className={`
-    hover:text-[#0d0d0e] 
+    hover:text-[#1a1a1a] 
     font-medium
     cursor-pointer 
     flex 
     gap-x-1 
     items-center 
     text-[17px] 
-    text-[#0d0d0e]/90 
+    text-[#1a1a1a]/90 
     relative
     after:content-['*'] 
     after:absolute 
@@ -207,15 +203,13 @@ const Header = () => {
         </div>
 
         <div className=" w-1/5 flex justify-end">
-          <motion.div whileHover={{ scale: 1.13 }} whileTap={{ scale: 1.1 }}>
             <Link href="/apply">
-              <div
-                className={`hidden  text-black md:flex px-4 cursor-pointer md:px-6 py-2 md:py-3 rounded-full transition-all bg-[#0d0d0e]`}
+              <ShinyButton
+                className={`hidden  text-black md:flex px-4 cursor-pointer md:px-6 py-2 md:py-3 rounded-full transition-all bg-[#1a1a1a]`}
               >
-                <p className={`text-sm text-white md:text-md`}>Apply Now</p>
-              </div>
+                <p className={`text-sm capitalize border  border-transparent text-white md:text-md`}>Apply Now</p>
+              </ShinyButton>
             </Link>
-          </motion.div>
         </div>
 
         <div className="flex md:hidden z-[999]">
@@ -243,8 +237,8 @@ const Header = () => {
                 }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 0.5 }}
-                className="z-[500] origin-top overflow-x-hidden bg-[#fff] fixed w-screen h-screen"
+                transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 0.7 }}
+                className="z-[500] origin-top overflow-x-hidden bg-[#EFEFEF] fixed w-screen h-screen"
               ></motion.div>
             )}
 
@@ -255,7 +249,7 @@ const Header = () => {
                     {menuToggled && (
                       <Link
                         href={url?.url}
-                        className="overflow-hidden duration-200 transition-all cursor-pointer capitalize font-normal text-[#0d0d0e]/90 text-4xl"
+                        className="overflow-hidden duration-200 transition-all cursor-pointer capitalize font-normal text-[#1a1a1a]/90 text-4xl"
                       >
                         <motion.div
                           variants={navLinks}

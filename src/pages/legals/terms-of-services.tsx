@@ -4,12 +4,12 @@ import Head from "next/head";
 
 const TermsPage = () => {
   return (
-    <div className="h-full flex flex-col justify-between bg-white text-gray-900">
+    <div className="h-full flex flex-col justify-between  text-gray-900">
       <Head>
-        <title>Terms of Services: AsyncAwake</title>
+        <title>Terms of Services: Async Awake</title>
         <meta
           name="description"
-          content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
+          content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
       </Head>
 
@@ -22,14 +22,14 @@ const TermsPage = () => {
           <strong>Last Updated: April 12, 2025</strong>
         </p>
         <p className="mb-4">
-          These Terms of Service govern your use of AsyncAwake’s website
+          These Terms of Service govern your use of Async Awake’s website
           (asyncawake.com) and Chat Agent services. By using our services, you
           agree to these terms.
         </p>
 
         <h2 className="text-xl font-medium mt-6 mb-2">1. Services</h2>
         <p className="mb-4">
-          AsyncAwake provides custom AI Chat Agent solutions, including design,
+          Async Awake provides custom AI Chat Agent solutions, including design,
           deployment, and maintenance. We aim for quality but do not guarantee
           specific outcomes.
         </p>
@@ -63,7 +63,7 @@ const TermsPage = () => {
 
         <h2 className="text-xl font-medium mt-6 mb-2">6. Limitation of Liability</h2>
         <p className="mb-4">
-          AsyncAwake is not liable for indirect damages or losses. Our liability
+          Async Awake is not liable for indirect damages or losses. Our liability
           is limited to fees paid in the prior 6 months.
         </p>
 

@@ -89,12 +89,12 @@ const FaqList = () => {
   );
 
   return (
-    <MotionInView className="w-full md:w-2/3 mt-20" variants={fadeInUpVariants}>
+    <MotionInView className="w-full z-50 md:w-1/2 mt-20" variants={fadeInUpVariants}>
       <Accordion type="single" collapsible className="w-full ">
         {faqItems.map((item, index) => (
           <AccordionItem key={index} value={`item-${index + 1}`}>
-            <AccordionTrigger className="text-md md:text-xl cursor-pointer py-6">
-              <span className="flex font-semibold items-center gap-x-4">
+            <AccordionTrigger className="text-md md:text-xl cursor-pointer py-4">
+              <span className="flex font-medium items-start md:items-center gap-x-4">
                 <p className=" from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r bg-clip-text text-transparent">
                   0{index + 1}.
                 </p>

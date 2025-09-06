@@ -1,20 +1,20 @@
-import Magnet from "@/animations/Magnet/Magnet";
-import Squares from "@/backgrounds/Squares/Squares";
+import { DotsPattern } from "@/backgrounds/Squares/DotPattern";
 import FaqList from "@/components/faq-list";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { ShinyButton } from "@/components/magicui/shiny-button";
+import { SectionLabel } from "@/components/section-label";
+import { cn } from "@/lib/utils";
+import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import {
   Briefcase,
   ColorSwatch,
   Convertshape,
   DollarCircle,
-  ExportSquare,
   Flash,
   LampCharge,
   MessageQuestion,
   Messages1,
-  NoteAdd,
   RecordCircle,
   Setting2,
   Star1,
@@ -22,9 +22,22 @@ import {
 } from "iconsax-react";
 import Link from "next/link";
 import { memo, useEffect, useMemo, useRef } from "react";
+import ShinyText from "../../animations/ShinyText/ShinyText";
 
-const MotionInView = memo(({ children, variants, custom, ...props }: any) => {
-  const ref = useRef(null);
+type IconType = typeof Flash;
+
+// MotionInView component
+interface MotionInViewProps {
+  children?: React.ReactNode;
+  variants?: Variants;
+  custom?: any;
+  className?: string;
+}
+
+const MotionInView: React.FC<
+  MotionInViewProps & React.ComponentPropsWithoutRef<typeof motion.div>
+> = memo(({ children, variants, custom, ...props }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false });
   const controls = useAnimation();
 
@@ -47,65 +60,84 @@ const MotionInView = memo(({ children, variants, custom, ...props }: any) => {
 });
 MotionInView.displayName = "MotionInView";
 
-const FeatureCard = memo(({ icon: Icon, title, description, index }: any) => {
-  const isEven = index % 2 == 0;
+// FeatureCard component
+interface FeatureCardProps {
+  icon: IconType;
+  title: string;
+  description: string;
+  index: number;
+  numberLabel: string;
+}
 
-  return (
-    <div
-      className={`flex-row w-full lg:w-1/2 ${
-        isEven ? " self-start" : "self-end"
-      } gap-x-7 lg:gap-x-10 relative flex group justify-start items-center`}
-    >
-      <div className="items-start">
+const FeatureCard: React.FC<FeatureCardProps> = memo(
+  ({ icon: Icon, title, description, index }) => {
+    const isEven = index % 2 === 0;
+
+    return (
+      <div
+        className={`flex-row w-full lg:w-1/2 ${
+          isEven ? " self-start" : "self-end"
+        } gap-x-7 lg:gap-x-10 relative flex group justify-start items-center`}
+      >
+        <div className="items-start">
+          <MotionInView
+            variants={{
+              initial: { scale: 0, y: 20, opacity: 0 },
+              animate: {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+              },
+            }}
+          >
+            <Icon
+              className="w-20 h-20 lg:w-40 lg:h-40 "
+              color="#292929"
+              strokeWidth={0.05}
+              variant="Broken"
+            />
+          </MotionInView>
+        </div>
+
         <MotionInView
           variants={{
-            initial: { scale: 0, y: 20, opacity: 0 },
+            initial: { y: 80, opacity: 0 },
             animate: {
               opacity: 1,
-              scale: 1,
               y: 0,
+              transition: {
+                ease: [0.6, 0.01, 0.05, 0.95],
+              },
             },
           }}
+          className="flex-col w-full"
         >
-          <Icon
-            className="w-20 h-20 lg:w-40 lg:h-40"
-            color="#5E27F6"
-            variant="Bulk"
-          />
+          <h1 className=" font-medium  relative w-full flex items-center  text-3xl lg:text-5xl text-[#292929]">
+            {title}
+          </h1>
+
+          <p className="text-md lg:text-xl font-medium  text-[#292929]/70 mt-3 ">
+            {description}
+          </p>
         </MotionInView>
       </div>
-
-      <MotionInView
-        variants={{
-          initial: { y: 80, opacity: 0 },
-          animate: {
-            opacity: 1,
-            y: 0,
-            transition: {
-              ease: [0.6, 0.01, 0.05, 0.95],
-            },
-          },
-        }}
-        className="flex-col"
-      >
-        <h1 className=" font-medium tracking-tighter flex items-center gap-x-1 text-3xl lg:text-5xl text-[#0d0d0e]">
-          {title}
-        </h1>
-
-        <p className="text-md lg:text-xl font-medium  text-[#0d0d0e]/70 mt-3 ">
-          {description}
-        </p>
-      </MotionInView>
-    </div>
-  );
-});
-
+    );
+  }
+);
 FeatureCard.displayName = "FeatureCard";
 
-const SolutionCard = memo(({ index, icon: Icon, title, description }: any) => (
-  <>
+// SolutionCard component
+interface SolutionCardProps {
+  index: number;
+  icon: IconType;
+  title: string;
+  description: string;
+}
+
+const SolutionCard: React.FC<SolutionCardProps> = memo(
+  ({ index, icon: Icon, title, description }) => (
     <MotionInView
-      className="w-full"
+      className="w-full flex flex-col md:flex-row items-start md:items-center justify-between"
       variants={{
         initial: { opacity: 0, y: 60 },
         animate: {
@@ -119,79 +151,68 @@ const SolutionCard = memo(({ index, icon: Icon, title, description }: any) => (
         },
       }}
     >
-      <div className="md:py-18 px-4 p-8 group  relative flex-col md:flex-row justify-between items-start md:items-center flex overflow-hidden h-full">
-        <div className="flex  justify-start items-center gap-x-8 h-full">
-          <h1
-            className="hidden border border-transparent md:flex text-8xl 
-          font-bold from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r bg-clip-text text-transparent"
-          >
-            0{index + 1}
-          </h1>
+      {/* Left: Content Block */}
+      <div className="flex items-start gap-x-8">
+        {/* Optional Icon or Number */}
 
-          <div className="flex-grow">
-            <div className="flex items-center gap-x-4">
-              <h2 className="text-4xl md:text-5xl  gap-x-2 flex items-start leading-14  from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent font-medium ">
-                <div className="flex group-hover:font-bold transition-all duration-200 items-center  gap-x-3">
-                  <h1
-                    className="text-4xl flex md:hidden
-          font-bold from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r bg-clip-text text-transparent"
-                  >
-                    0{index + 1}
-                  </h1>
-                  {title}{" "}
-                </div>
-              </h2>
-            </div>
-            <p className="mt-4 md:w-2/3 text-md md:text-xl text-[#0d0d0e]/90 font-medium">
-              {description}
-            </p>
+        {/* Text Block - Shrinks to fit content */}
+        <div className="flex flex-col">
+          <div className="flex items-center gap-x-4">
+            <h2 className="text-3xl md:text-5xl font-medium text-[#292929] leading-tight">
+              <span className="md:pb-1 flex items-center gap-x-3">
+                <sub className=" text-[#5E27F6] flex text-6xl md:text-7xl leading-0 font-semibold">
+                  *
+                </sub>
+                {title}
+              </span>
+            </h2>
           </div>
-        </div>
-
-        <div className="self-end mt-10 md:mt-0 md:self-center">
-          <Link href="/apply">
-            <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
-              <div className="bg-[#0d0d0e] px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                <p className="text-[#fff] font-medium text-sm md:text-md">
-                  Apply For Consultation
-                </p>
-              </div>
-            </motion.div>
-          </Link>
-
-          <Link href="/faq" className="mt-6 md:mt-0 self-end md:self-center">
-            <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 1.1 }}>
-              <div className="bg-[#F8F8F8] flex justify-center gap-x-2 items-center mt-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                <p className="text-[#000] font-medium text-sm md:text-md">
-                  Have a question?
-                </p>
-                <ExportSquare variant="TwoTone" size={15} color="#000" />
-              </div>
-            </motion.div>
-          </Link>
+          <p className="mt-4 w-[80%] text-md md:text-xl text-[#292929]/70 font-medium max-w-xl">
+            {description}
+          </p>
         </div>
       </div>
-    </MotionInView>
 
-    <MotionInView
-      variants={{
-        initial: { width: 0 },
-        animate: {
-          width: "100%",
-          transition: {
-            ease: [0.4, 0, 0.1, 1],
-            duration: 0.7,
-          },
-        },
-      }}
-      className="origin-left w-full border-t-[2px] border-[#f0f0f0]"
-    ></MotionInView>
-  </>
-));
+      {/* Right: Buttons */}
+      <div className="mt-10 self-end md:self-center md:mt-0 flex  flex-col items-start md:items-end gap-y-3">
+        <Link href="/apply" className="w-full">
+          <ShinyButton className="w-full bg-[#292929] flex items-center px-4 md:px-6 py-3 md:py-3 rounded-full cursor-pointer">
+            <p className="text-white capitalize font-medium text-sm md:text-md">
+              Apply Now
+            </p>
+          </ShinyButton>
+        </Link>
+
+        <Link href="/faq" className="w-full">
+          <ShinyButton className="bg-[#f8f8f8] border-black/10 w-full flex items-center px-4 md:px-6 py-3 md:py-3 rounded-full cursor-pointer">
+            <p className="text-[#000] capitalize  font-medium text-sm md:text-md">
+              Questions?
+            </p>
+          </ShinyButton>
+        </Link>
+      </div>
+    </MotionInView>
+  )
+);
 SolutionCard.displayName = "SolutionCard";
 
-export default function Home() {
-  const smoothEase = [0.6, 0.01, 0.05, 0.95];
+// Interfaces for features and solutions
+interface Feature {
+  icon: IconType;
+  title: string;
+  numberLabel: string;
+  description: string;
+}
+
+interface Solution {
+  icon: IconType;
+  title: string;
+  description: string;
+}
+
+const Home: React.FC = () => {
+  const smoothEase: [number, number, number, number] = [0.6, 0.01, 0.05, 0.95];
+
   // Memoized variants for animations
   const fadeInUpVariants = useMemo(
     () => ({
@@ -199,7 +220,7 @@ export default function Home() {
       animate: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.5, ease: [smoothEase] },
+        transition: { duration: 0.5, ease: smoothEase },
       },
     }),
     [smoothEase]
@@ -219,7 +240,7 @@ export default function Home() {
   );
 
   // Memoized feature data for "Why Choose AI"
-  const features = useMemo(
+  const features: Feature[] = useMemo(
     () => [
       {
         icon: Flash,
@@ -251,45 +272,44 @@ export default function Home() {
     []
   );
 
-  // Memoized solution data for "AI-Powered Efficiency" with additional fields
-  const solutions = useMemo(
+  const solutions: Solution[] = useMemo(
     () => [
       {
         icon: Messages1,
         title: "AI Chat Agent",
         description:
-          "Engage customers 24/7 with conversational chat agent that improves support and boosts sales",
+          "Engage customers 24/7 with conversational chat agent that improves support and converts leads",
       },
       {
         icon: Setting2,
         title: "AI Automation",
         description:
-          "Automate the boring stuff, cut costs, and speed up operations—without burning out your team",
+          "Automate the boring stuff like email outreach, cut costs, and speed up operations—without burning out your team",
       },
       {
         icon: VoiceSquare,
         title: "Voice Agent",
         description:
-          "24/7 support with an intelligent voice agent that improves engagement and efficiency",
+          "Deliver round-the-clock support with a voice agent that boosts customer engagement and streamlines service",
       },
     ],
     []
   );
 
-  const heroH1 = {
+  const heroH1: Variants = {
     initial: { y: "100%" },
     animate: { y: 0 },
   };
 
-  const InfiniteScrollText = () => {
-    const words = [
+  const InfiniteScrollText: React.FC = () => {
+    const words: string[] = [
       "AI Chat Agent",
       "Customer Inquiries",
       "Automation",
       "Boost Efficiency",
     ];
 
-    const wordsOpposite = [
+    const wordsOpposite: string[] = [
       "Boost Efficiency",
       "Automation",
       "Customer Inquiries",
@@ -297,19 +317,19 @@ export default function Home() {
     ];
 
     return (
-      <div className={`w-full overflow-hidden pb-2`}>
-        <div className="flex flex-col space-y-1">
+      <div className="w-full overflow-hidden -mt-1 md:-mt-4">
+        <div className="flex flex-col">
           {/* Top row: scrolls left */}
           <div className="flex animate-scroll-left whitespace-nowrap">
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-5xl flex flex-row items-center lg:text-7xl font-bold tracking-tighter text-[#0d0d0e]"
+                className=" text-[50px] leading-11 md:leading-none flex flex-row items-center lg:text-7xl md:font-bold font-medium  text-[#292929]"
               >
-                <h1 className="from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+                <h1 className="from-[#000]/90 p-1.5 via-[#292929]/80 to-[#292929]/70 ">
                   {words[(i + 1) % words.length]}
                 </h1>
-                <sub className="mx-3 md:mx-5 text-7xl leading-0  md:text-[80px] text-[#5E27F6]">
+                <sub className="mx-2.5 md:mx-5 text-6xl leading-0  md:text-[100px] text-[#5E27F6]">
                   *
                 </sub>
               </span>
@@ -320,12 +340,12 @@ export default function Home() {
             {[...Array(20)].map((_, i) => (
               <span
                 key={`bottom-${i}`}
-                className=" text-5xl flex flex-row items-center lg:text-7xl font-bold tracking-tighter text-[#0d0d0e]"
+                className=" text-[50px] leading-11 md:leading-none flex flex-row items-center lg:text-7xl md:font-bold font-medium  text-[#292929]"
               >
-                <h1 className="from-[#000]/90 p-1.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+                <h1 className="from-[#000]/90 p-1.5 via-[#292929]/80 to-[#292929]/70 ">
                   {wordsOpposite[(i + 1) % wordsOpposite.length]}
                 </h1>
-                <sub className="mx-3 md:mx-5 text-7xl  leading-0  md:text-[80px] text-[#5E27F6]">
+                <sub className="mx-2.5 md:mx-5 text-6xl  leading-0  md:text-[100px] text-[#5E27F6]">
                   *
                 </sub>
               </span>
@@ -338,41 +358,37 @@ export default function Home() {
 
   return (
     <div className="h-full">
+      <div className="absolute z-0 left-0  w-full h-full md:h-hull">
+        <DotsPattern
+          className={cn(
+            "[mask-image:radial-gradient(350px_circle_at_center,white,transparent)]",
+            "lg:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+          )}
+        />
+      </div>
+
       <head>
-        <title>Home: AsyncAwake</title>
+        <title>Home: Async Awake</title>
         <meta
           name="description"
-          content="AsyncAwake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
+          content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
       </head>
 
       <Header />
 
-      <div className="absolute z-0 left-0 top-0 w-full h-screen md:h-hull">
-        <Squares
-          speed={0}
-          squareSize={60}
-          direction="down"
-          borderColor={"#0d0d0e" + "1A"}
-          hoverFillColor="transparent"
-        />
-      </div>
-
-      <div className="z-10 h-[100svh] md:h-[90vh] relative justify-between flex flex-col">
+      <div className="z-10 h-[90svh] md:h-[90vh] relative justify-between flex flex-col">
         <div className=""></div>
 
         <div className="justify-center w-fit self-center relative flex-col items-center flex">
-          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-[#5E27F6] font-medium">Skip the Busywork</p>
-            <Flash variant="Bulk" size={18} color="#5E27F6" />
-          </div>
+          <SectionLabel text="Skip the Busywork" icon={Flash} />
 
-          <div className="flex-col z-1 flex items-center justify-center">
+          <div className="flex-col mt-6 z-1 flex items-center justify-center">
             <div className="hidden md:flex overflow-hidden z-1">
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 tracking-tighter text-center text-[#0d0d0e] leading-14 lg:leading-20 text-5xl lg:text-[80px] font-bold"
+                className="overflow-hidden relative mt-0 z-0 text-[#292929]  text-center  leading-14 lg:leading-20 text-5xl lg:text-[78px] font-bold  "
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -380,7 +396,8 @@ export default function Home() {
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
               >
-                Save 8+ Hours a Week
+                Save <ShinyText speedInMs={5000} className="pr-0.5">Over 8 Hours</ShinyText> a Week
+                {/* <span className="text-[#797979]"></span> */}
               </motion.h1>
             </div>
 
@@ -388,7 +405,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden mt-6 z-0 leading-12.5 text-center text-[#0d0d0e]  text-5xl font-bold tracking-tighter"
+                className="overflow-hidden z-0  text-[#292929]  text-center text-5xl font-medium   "
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -396,7 +413,7 @@ export default function Home() {
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
               >
-                Save 8+
+                Save <ShinyText speedInMs={5000}>Over 8</ShinyText>
               </motion.h1>
             </div>
 
@@ -404,7 +421,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-12.5 text-center text-5xl font-bold tracking-tighter"
+                className="overflow-hidden z-0 mt-1  text-[#292929] text-center text-5xl font-medium  "
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -412,7 +429,7 @@ export default function Home() {
                   ease: [0.6, 0.01, -0.05, 0.95],
                 }}
               >
-                Hours a Week
+                <ShinyText speedInMs={5000}>Hours</ShinyText> a Week
               </motion.h1>
             </div>
 
@@ -420,7 +437,7 @@ export default function Home() {
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-14 text-center text-5xl font-bold tracking-tighter"
+                className="overflow-hidden z-0 pb-1 mt-1  text-[#292929] text-center text-5xl font-medium  "
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -432,11 +449,11 @@ export default function Home() {
               </motion.h1>
             </div>
 
-            <div className="flex md:hidden  mb-6 overflow-hidden z-1">
+            <div className="flex md:hidden   overflow-hidden z-1">
               <motion.h1
                 initial="initial"
                 animate="animate"
-                className="overflow-hidden z-0 leading-14 text-center text-5xl font-bold tracking-tighter"
+                className="overflow-hidden z-0 pb-1 mt-1  text-[#292929] text-center text-5xl font-medium"
                 variants={heroH1}
                 transition={{
                   duration: 0.7,
@@ -448,12 +465,12 @@ export default function Home() {
               </motion.h1>
             </div>
 
-            <div className="flex md:flex-row flex-col justify-center gap-x-4 items-center">
-              <div className="hidden md:flex overflow-hidden z-1">
+            <div className="flex md:flex-row  flex-col justify-center gap-x-4 items-center">
+              <div className="hidden md:flex  overflow-hidden z-1">
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className=" z-0 text-center tracking-tighter text-[#0d0d0e] pb-6  leading-14 lg:leading-26 text-5xl lg:text-[80px] font-bold"
+                  className=" z-0 text-center  pb-2  text-[#292929] lg:leading-20 text-5xl lg:text-[78px] font-bold  "
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -469,7 +486,7 @@ export default function Home() {
                 <motion.h1
                   initial="initial"
                   animate="animate"
-                  className="z-0 text-center text-[#0d0d0e] tracking-tighter pb-6 leading-14 lg:leading-20 text-5xl lg:text-[80px] font-bold"
+                  className="z-0 text-center  pb-2   text-[#292929]  lg:leading-20 text-5xl lg:text-[78px] font-bold  "
                   variants={heroH1}
                   transition={{
                     duration: 0.7,
@@ -483,83 +500,58 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="mx-6 md:px-0 text-center font-medium  text-xl md:text-xl lg:text-2xl text-[#0d0d0e]/80 ">
+          <p className="mx-6 md:px-0 mt-6 md:mt-10 text-center text-xl font-medium   md:text-xl lg:text-2xl text-[#292929]/85 ">
             We build smart assistants that answer questions, automate tasks,{" "}
             <br className="hidden sm:flex" />
             and free up your team’s time.
           </p>
 
-          <Magnet padding={50} className="mt-8 md:mt-10" magnetStrength={40}>
-            <Link href="/apply">
-              <motion.div
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 1.1 }}
-              >
-                <div className="bg-[#0d0d0e] px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                  <p className="text-[#fff] font-medium text-sm md:text-md">
-                    Apply Now
-                  </p>
-                </div>
-              </motion.div>
-            </Link>
-          </Magnet>
+          <Link href="/apply">
+            <ShinyButton className="mt-8 md:mt-10 bg-[#292929] px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+              <p className="text-[#EFEFEF] capitalize font-medium text-sm md:text-md">
+                Apply Now
+              </p>
+            </ShinyButton>
+          </Link>
         </div>
 
         <div></div>
-        <div className="flex md:hidden"></div>
       </div>
 
       <InfiniteScrollText />
 
-      <div className="h-full pt-50 pb-30">
+      <div className="h-full relative pt-50 pb-30">
+        <div className="absolute z-0 left-0 top-0 w-full h-full md:h-hull">
+          <DotsPattern
+            className={cn(
+              "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
+              "lg:[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]"
+            )}
+          />
+        </div>
+
         <MotionInView
           className="flex flex-col justify-center items-center"
           variants={fadeInUpVariants}
         >
-          <div className="backdrop-blur-2xl flex gap-x-2 items-center  bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-[#5E27F6] font-medium">Benefits</p>
-            <Star1
-              variant="Bulk"
-              size={18}
-              className="relative  bottom-[1px]"
-              color="#5E27F6"
-            />
-          </div>
-          <h1 className="relative mt-6 text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4  text-5xl lg:text-7xl font-bold tracking-tighter  from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
-            <span className="gap-x-3 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent md:gap-x-4 flex">
-              The
-              <span className="relative from-[#000]/90 pr-0.5 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent inline-block">
-                Benefits
-                <svg
-                  className="absolute stroke-[2.5px] md:stroke-[2px]  -bottom-2.5 md:-bottom-3.5 left-1/2 -translate-x-1/2 w-full"
-                  viewBox="0 0 100 10"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5 8 Q50 2, 95 8"
-                    stroke="#5E27F6"
-                    strokeLinecap="round"
-                    fill="transparent"
-                  />
-                </svg>
-              </span>
+          <SectionLabel text="Benefits" icon={Star1} />
+          <h1 className="relative mt-6 text-center justify-center flex flex-col items-center gap-x-3 md:gap-x-4  text-5xl leading-12 md:leading-none lg:text-7xl md:font-bold font-medium   text-[#292929] ">
+            <span className="gap-x-3 text-[#292929]  md:gap-x-4 flex">
+              The Benefits
             </span>
 
-            <span className="flex from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent relative flex-row items-center mt-2 md:mt-3 gap-x-3 md:gap-x-4">
+            <span className="flex text-[#292929]   relative flex-row items-center  gap-x-3 md:gap-x-4">
               Of Automation
               <MotionInView
                 variants={{
-                  initial: { scale: 0 },
+                  initial: { scale: 0, y: 20, opacity: 0 },
                   animate: {
+                    opacity: 1,
                     scale: 1,
-                    transition: {
-                      duration: 0.4,
-                      ease: smoothEase,
-                    },
+                    y: 0,
                   },
                 }}
-                className="absolute md:relative md:top-0 -top-28 -right-4"
+                className="hidden  md:flex md:top-0  -top-25 -right-5.5"
               >
                 <MessageQuestion
                   color="#5E27F6"
@@ -581,7 +573,7 @@ export default function Home() {
             },
           }}
         >
-          <p className="text-3xl mx-8  md:text-4xl  mt-10 text-center font-medium from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent ">
+          <p className="text-2xl mx-8  md:text-4xl  mt-10 text-center font-medium text-[#292929]/85  ">
             Virtual Assistants handle the work for you while{" "}
             <br className="hidden md:block" />
             you & your team focus on what's important.
@@ -590,18 +582,26 @@ export default function Home() {
 
         <div className="w-full flex justify-center items-center"></div>
 
-        <div className="flex flex-col lg:gap-y-10 gap-y-16 px-6 items-center xl:px-60 mt-40">
+        <div className="flex flex-col lg:gap-y-10 gap-y-16 px-6 items-center xl:mx-60 mt-40">
           {features.map((feature, index) => (
-            <FeatureCard index={index} {...feature} />
+            <FeatureCard key={index} index={index} {...feature} />
           ))}
         </div>
       </div>
 
       <div
         id="solutions"
-        className="h-full flex flex-col justify-center py-30 px-6 md:px-10"
+        className="h-full relative md:gap-x-20 flex flex-col md:flex-row  py-30  px-6 md:px-30"
       >
-        <div className="flex items-start  flex-col md:flex-row justify-evenly md:items-center ">
+        <div className="absolute z-0 left-0 top-0 w-full h-full md:h-hull">
+          <DotsPattern
+            className={cn(
+"[mask-image:radial-gradient(450px_circle_at_center,white,transparent)]",
+            "lg:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"            )}
+          />
+        </div>
+
+        <div className="flex h-min shrink-0  md:sticky top-0 md:top-40 items-start flex-col xl:flex-row  justify-between md:items-center ">
           <MotionInView
             variants={{
               initial: { opacity: 0, y: 80 },
@@ -612,25 +612,37 @@ export default function Home() {
               },
             }}
           >
-            <div className="flex flex-col items-start">
-              <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10 px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-                <p className="text-[#5E27F6] font-medium">Solutions</p>
-                <LampCharge
-                  variant="Bulk"
-                  className="relative bottom-[1px]"
-                  size={18}
-                  color="#5E27F6"
-                />
-              </div>
+            <div className="flex  flex-col items-start">
+              <SectionLabel text="Solutions" icon={LampCharge} />
 
-              <div className=" from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent pb-1.5 font-bold  text-5xl lg:text-7xl mt-6">
+              <div className=" text-[#292929]  pb-1.5 md:font-bold font-medium  text-5xl leading-12 md:leading-none lg:text-7xl mt-6">
                 Cut Costs, <br />
                 Less Busywork
               </div>
+
+              <MotionInView
+                variants={{
+                  initial: { opacity: 0, y: 40 },
+                  animate: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.5, ease: smoothEase, delay: 0.1 },
+                  },
+                }}
+                className="hidden md:flex"
+              >
+                {/* <p className="text-2xl  md:text-4xl  mt-10  font-medium text-[#292929]/85  ">
+                  from answering customer questions to{" "}
+                  <br className="hidden lg:flex" />
+                  automating internal tasks our{" "}
+                  <br className="hidden lg:flex" />
+                  solutions help you do more with less.
+                </p> */}
+              </MotionInView>
             </div>
           </MotionInView>
 
-          <div>
+          <div className="flex md:hidden">
             <MotionInView
               variants={{
                 initial: { opacity: 0, y: 40 },
@@ -641,7 +653,7 @@ export default function Home() {
                 },
               }}
             >
-              <p className="text-3xl  md:text-4xl  mt-10 md:mt-0 font-medium from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent ">
+              <p className="text-2xl  md:text-4xl  mt-10 md:mt-0 font-medium text-[#292929]/85  ">
                 from answering customer questions to{" "}
                 <br className="hidden lg:flex" />
                 automating internal tasks our <br className="hidden lg:flex" />
@@ -651,33 +663,28 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-20 md:px-10 gap-y-4 h-full self-center flex  w-full flex-col  justify-center">
+        <div className="mt-20 z-50 md:mt-0  gap-y-10 lg:gap-y-20 h-full self-center flex  w-full flex-col  justify-center">
           {solutions.map((solution, index) => (
-            <SolutionCard
-              key={index}
-              index={index}
-              {...solution}
-              solution={solution}
-            />
+            <SolutionCard key={index} index={index} {...solution} />
           ))}
         </div>
       </div>
 
-      <div className="h-full py-30 flex flex-col justify-center items-center px-6 md:px-10">
+      <div className="h-full relative py-30 flex flex-col justify-center items-center px-6 md:px-10">
+        <div className="absolute z-0 left-0 top-0 w-full h-full md:h-hull">
+          <DotsPattern
+            className={cn(
+"[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+            "lg:[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]"            )}
+          />
+        </div>
+
         <MotionInView
           className="flex items-center flex-col"
           variants={fadeInUpVariants}
         >
-          <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10  px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-            <p className="text-[#5E27F6] font-medium">FAQ</p>
-            <MessageQuestion
-              variant="Bulk"
-              size={18}
-              className="relative  bottom-[1px]"
-              color="#5E27F6"
-            />
-          </div>
-          <h1 className="mt-6  text-center px-1  font-bold  text-5xl lg:text-7xl from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent">
+          <SectionLabel text="FAQ" icon={MessageQuestion} />
+          <h1 className="mt-6  text-center px-1  md:font-bold font-medium  text-5xl leading-12 md:leading-none lg:text-7xl text-[#292929] ">
             Frequently <br />
             Asked Questions
           </h1>
@@ -686,23 +693,23 @@ export default function Home() {
         <FaqList />
       </div>
 
-      <div className="h-full py-30 flex flex-col justify-center items-center px-6 md:px-10">
+      <div className="h-full relative py-30 flex flex-col justify-center items-center px-6 md:px-10">
+        <div className="absolute z-0 left-0 top-0 w-full h-full md:h-hull">
+          <DotsPattern
+            className={cn(
+"[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+            "lg:[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]"            )}
+          />
+        </div>
+
         <div>
           <MotionInView
             className="flex items-center flex-col"
             variants={fadeInUpVariants}
           >
-            <div className="backdrop-blur-2xl flex gap-x-2 items-center bg-[#5E27F6]/10  px-3 md:px-4 py-1 md:py-1.5 rounded-full">
-              <p className="text-[#5E27F6] font-medium">Our Approach</p>
-              <Convertshape
-                variant="Bulk"
-                className="relative bottom-[1px]"
-                size={18}
-                color="#5E27F6"
-              />
-            </div>
-            <h1 className="mt-6 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent text-center font-bold  text-5xl lg:text-7xl">
-              Implementation <br />
+            <SectionLabel text="Our Approach" icon={Convertshape} />
+            <h1 className="mt-6 text-[#292929]  text-center md:font-bold font-medium text-5xl leading-12 md:leading-none lg:text-7xl">
+              Integration <br />
               Process
             </h1>
           </MotionInView>
@@ -717,7 +724,7 @@ export default function Home() {
               },
             }}
           >
-            <p className="text-center mx-6 font-medium text-3xl md:text-4xl mt-10 from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-b bg-clip-text text-transparent">
+            <p className="text-center mx-6 font-medium text-2xl md:text-4xl mt-10 text-[#292929]/85 ">
               Book a free consult, we build the solution,{" "}
               <br className="hidden md:flex" />
               then launch it. No fluff—just done-for-you.
@@ -748,7 +755,7 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8] "
+                    className="w-22 relative h-22 text-3xl justify-center items-center flex rounded-4xl bg-[#f8f8f8] "
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -757,10 +764,10 @@ export default function Home() {
                       className="absolute self-center -right-2"
                     />
 
-                    <span>01</span>
+                    <span className="font-medium text-[#292929]">01</span>
                   </MotionInView>
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-2xl">
+                    <div className="text-[#292929] font-medium text-xl">
                       Consultation
                     </div>
                   </div>
@@ -780,8 +787,8 @@ export default function Home() {
                       },
                     },
                   }}
-                  className="h-24 w-[3px] rounded-2xl origin-top my-3 relative left-12 from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
-                ></MotionInView>
+                  className="h-24 w-[3px] rounded- origin-top my-3 relative left-12 from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
+                />
               </div>
             </div>
 
@@ -798,7 +805,7 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8]"
+                    className="w-22 relative h-22 text-3xl justify-center items-center flex rounded-4xl bg-[#f8f8f8]"
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -807,11 +814,11 @@ export default function Home() {
                       className="absolute self-center -right-2"
                     />
 
-                    <span>02</span>
+                    <span className="font-medium text-[#292929]">02</span>
                   </MotionInView>
 
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-2xl   ">
+                    <div className="text-[#292929] font-medium text-xl">
                       Develop
                     </div>
                   </div>
@@ -832,7 +839,7 @@ export default function Home() {
                     },
                   }}
                   className="h-24 w-[3px] my-3 rounded-2xl relative origin-top left-12 from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
-                ></MotionInView>
+                />
               </div>
             </div>
 
@@ -849,7 +856,7 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-24 relative h-24 text-3xl justify-center items-center flex rounded-4xl bg-[#F8F8F8]"
+                    className="w-22 relative h-22 text-3xl justify-center items-center flex rounded-4xl bg-[#f8f8f8]"
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -858,11 +865,11 @@ export default function Home() {
                       className="absolute self-center -right-2"
                     />
 
-                    <span>03</span>
+                    <span className="font-medium text-[#292929]">03</span>
                   </MotionInView>
 
                   <div>
-                    <div className="text-[#0d0d0e] font-medium text-2xl   ">
+                    <div className="text-[#292929] font-medium text-xl">
                       Deploy
                     </div>
                   </div>
@@ -887,7 +894,7 @@ export default function Home() {
                         transition: { ease: smoothEase, duration: 0.5 },
                       },
                     }}
-                    className="w-24 h-24 relative text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
+                    className="w-24 h-24 relative text-[#292929] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#f8f8f8]"
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -895,9 +902,9 @@ export default function Home() {
                       color="#5E27F6"
                       className="absolute self-center -bottom-2"
                     />
-                    <span>01</span>
+                    <span className="font-medium text-[#292929]">01</span>
                   </MotionInView>
-                  <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
+                  <div className="absolute font-medium -bottom-14 text-[#292929] text-xl">
                     Consultation
                   </div>
                 </div>
@@ -917,7 +924,7 @@ export default function Home() {
                     },
                   }}
                   className="w-24 origin-left mx-2 h-[3px] rounded-2xl from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
-                ></MotionInView>
+                />
               </div>
             </div>
 
@@ -938,7 +945,7 @@ export default function Home() {
                         },
                       },
                     }}
-                    className="w-24 h-24 relative text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
+                    className="w-24 h-24 relative text-[#292929] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#f8f8f8]"
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -947,9 +954,9 @@ export default function Home() {
                       className="absolute self-center -bottom-2"
                     />
 
-                    <span>02</span>
+                    <span className="font-medium text-[#292929]">02</span>
                   </MotionInView>
-                  <div className="absolute font-medium -bottom-14 text-[#0d0d0e] text-xl">
+                  <div className="absolute font-medium -bottom-14 text-[#292929] text-xl">
                     Develop
                   </div>
                 </div>
@@ -968,7 +975,7 @@ export default function Home() {
                     },
                   }}
                   className="w-24 mx-2 h-[3px] rounded-2xl origin-left from-[#4B1ECB] via-[#5E27F6] to-[#7A42FF] bg-gradient-to-r"
-                ></MotionInView>
+                />
               </div>
             </div>
 
@@ -989,7 +996,7 @@ export default function Home() {
                         },
                       },
                     }}
-                    className="w-24 relative h-24 text-[#0d0d0e] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#F8F8F8]"
+                    className="w-24 relative h-24 text-[#292929] text-3xl justify-center font-medium items-center flex rounded-4xl bg-[#f8f8f8]"
                   >
                     <RecordCircle
                       variant="Bulk"
@@ -998,9 +1005,9 @@ export default function Home() {
                       className="absolute self-center -bottom-2"
                     />
 
-                    <span>03</span>
+                    <span className="font-medium text-[#292929]">03</span>
                   </MotionInView>
-                  <div className="absolute -bottom-14 font-medium text-[#0d0d0e] text-xl">
+                  <div className="absolute -bottom-14 font-medium text-[#292929] text-xl">
                     Deploy
                   </div>
                 </div>
@@ -1010,17 +1017,25 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="h-full flex flex-col justify-center items-center pt-30">
-        <MotionInView className="w-min" variants={scaleRotateVariants}>
-          <div className="w-34 h-34 rounded-full bg-[#F8F8F8] backdrop-blur-2xl flex justify-center items-center">
-            <Briefcase variant="Bulk" size={46} color={"#0d0d0e"} />
+      <div className="h-full  flex relative flex-col justify-center items-center py-30">
+        <div className="absolute z-0 left-0 top-0 w-full h-full md:h-hull">
+          <DotsPattern
+            className={cn(
+"[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
+            "lg:[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"            )}
+          />
+        </div>
+
+        <MotionInView className="w-min " variants={scaleRotateVariants}>
+          <div className="w-34 h-34 rounded-full bg-[#f8f8f8] backdrop-blur-2xl flex justify-center items-center">
+            <Briefcase variant="Bulk" size={46} color={"#292929"} />
           </div>
         </MotionInView>
 
         <MotionInView variants={fadeInUpVariants}>
-          <h1 className="mt-8 mb-10 text-4xl from-[#000]/90 via-[#0d0d0e]/80 to-[#0d0d0e]/70 bg-gradient-to-br bg-clip-text text-transparent  lg:text-7xl font-bold text-center">
-            Apply Now, <br />
-            let’s collaborate!
+          <h1 className="mt-8 mb-10 text-5xl text-[#292929] lg:text-7xl md:font-bold font-medium text-center">
+            Let’s Work <br />
+            Together!
           </h1>
         </MotionInView>
 
@@ -1033,8 +1048,9 @@ export default function Home() {
               transition: { duration: 0.5, ease: smoothEase },
             },
           }}
+          className="z-10"
         >
-          <div className="flex items-center gap-x-4">
+          <div className="flex  items-center gap-x-4">
             <Link href="/apply">
               <motion.div
                 initial={{ opacity: 0 }}
@@ -1042,13 +1058,10 @@ export default function Home() {
                   opacity: 1,
                   transition: { duration: 0.5, ease: smoothEase, delay: 0.3 },
                 }}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 1.1 }}
               >
-                <div className="text-[#fff] bg-[#0d0d0e] w-fit flex items-center gap-x-2 border-2 px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
-                  <NoteAdd variant="TwoTone" color={"#fff"} size={20} />
-                  Apply Now
-                </div>
+                <ShinyButton className=" text-[#EFEFEF] bg-[#292929] w-fit flex items-center  px-4 cursor-pointer md:px-6 py-3 md:py-3 rounded-full">
+                  <p className="text-white capitalize">Apply Now</p>
+                </ShinyButton>
               </motion.div>
             </Link>
           </div>
@@ -1058,4 +1071,6 @@ export default function Home() {
       <Footer />
     </div>
   );
-}
+};
+
+export default Home;

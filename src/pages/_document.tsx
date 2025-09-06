@@ -19,8 +19,7 @@ declare global {
 export default function Document() {
   return (
     <Html lang="en">
-      <Head>
-      </Head>
+      <Head></Head>
       <body className="antialiased">
         <Main />
         <NextScript />
