@@ -9,13 +9,13 @@ import { MessageQuestion } from "iconsax-react";
 const Faq = () => {
   return (
     <div className="relative">
-      <head>
+      {/* <head>
         <title>FAQ: Async Awake</title>
         <meta
           name="description"
           content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
-      </head>
+      </head> */}
 
       <Header />
 

@@ -90,13 +90,13 @@ const Contact = () => {
           />
         </div>
 
-        <head>
+        {/* <head>
           <title>Contact: Async Awake</title>
           <meta
             name="description"
             content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
           />
-        </head>
+        </head> */}
 
         <Header />
         <div className="w-full overflow-x-hidden relative flex h-full flex-col lg:flex-row py-10 px-6 lg:px-0 lg:py-20 items-start justify-around ">

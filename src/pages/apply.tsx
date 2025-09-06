@@ -40,9 +40,6 @@ const Apply = () => {
     <div
       style={{ height: "100vh", width: "100vw", overflow: "hidden", margin: 0 }}
     >
-      <head>
-        <title>Apply Now: Async Awake</title>
-      </head>
       {/* The form embed will be inserted dynamically */}
     </div>
   );

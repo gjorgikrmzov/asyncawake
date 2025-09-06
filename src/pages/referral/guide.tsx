@@ -5,7 +5,7 @@ import Head from "next/head";
 export default function Home() {
   return (
     <div>
-      <Head>
+      {/* <Head>
         <title>Async Awake Referral Partner Guide</title>
         <meta
           name="description"
@@ -16,7 +16,7 @@ export default function Home() {
           rel="stylesheet"
         />
         <script src="https://cdn.tailwindcss.com"></script>
-      </Head>
+      </Head> */}
 
       <Header />
       <main className="min-h-screen  py-10 px-6 md:px-10 text-left" style={{ fontFamily: "'Onest', sans-serif" }}>

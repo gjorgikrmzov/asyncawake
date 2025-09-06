@@ -19,7 +19,13 @@ declare global {
 export default function Document() {
   return (
     <Html lang="en">
-      <Head></Head>
+      <Head>
+        <title>Async Awake</title>
+                  <meta
+            name="description"
+            content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
+          />
+      </Head>
       <body className="antialiased">
         <Main />
         <NextScript />

@@ -5,13 +5,13 @@ import Head from "next/head";
 const TermsPage = () => {
   return (
     <div className="h-full flex flex-col justify-between  text-gray-900">
-      <Head>
+      {/* <Head>
         <title>Terms of Services: Async Awake</title>
         <meta
           name="description"
           content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
-      </Head>
+      </Head> */}
 
       {/* Header */}
       <Header />

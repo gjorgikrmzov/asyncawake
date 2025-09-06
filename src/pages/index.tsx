@@ -226,7 +226,7 @@ const Home: React.FC = () => {
     [smoothEase]
   );
 
-  const scaleRotateVariants = useMemo(
+  const scaleRotateVariants: any = useMemo(
     () => ({
       initial: { scale: 0, opacity: 0, rotate: -360 },
       animate: {
@@ -367,13 +367,13 @@ const Home: React.FC = () => {
         />
       </div>
 
-      <head>
+      {/* <head>
         <title>Home: Async Awake</title>
         <meta
           name="description"
           content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
         />
-      </head>
+      </head> */}
 
       <Header />
 

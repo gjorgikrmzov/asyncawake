@@ -6,13 +6,13 @@ const PrivacyPage = () => {
     <>
       <div className="h-full flex flex-col justify-between  text-gray-900">
 
-        <head>
+        {/* <head>
           <title>Privacy Policy: Async Awake</title>
           <meta
             name="description"
             content="Async Awake: AI agency crafting smart Chat Agent and automation to boost efficiency, engagement, and growth for businesses."
           />
-        </head>
+        </head> */}
 
         {/* Header */}
         <Header />
