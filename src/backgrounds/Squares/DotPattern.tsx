@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { cn } from "../../../src/utils/cn";
+import { cn } from "../../lib/utils";
 
 type DotPatternProps = {
   width?: number;

@@ -1,4 +1,4 @@
-import { cn } from "../../src/utils/cn";
+import { cn } from "../../src/lib/utils";
 import type { ComponentProps, ReactNode } from "react";
 
 const ShinyText = ({
